@@ -40,27 +40,71 @@ class ForumPost {
 
 // Mock chat messages
 final List<ChatMessage> mockChatMessages = [
-  ChatMessage(id: 'm1', sender: 'Farmer John', text: 'Hey, everyone! Just joined this group.', timestamp: '10:00 AM'),
-  ChatMessage(id: 'm2', sender: 'Me', text: 'Welcome John! What are you growing this season?', timestamp: '10:05 AM'),
-  ChatMessage(id: 'm3', sender: 'Farmer John', text: 'Mostly corn and some soybeans.', timestamp: '10:10 AM'),
-  ChatMessage(id: 'm4', sender: 'AgriExpert Sarah', text: 'If you have corn, consider organic fertilizers like compost tea. It really boosts soil health.', timestamp: '10:15 AM'),
-  ChatMessage(id: 'm5', sender: 'Me', text: 'That sounds interesting! Any specific recipes for compost tea?', timestamp: '10:20 AM'),
-  ChatMessage(id: 'm6', sender: 'Farmer John', voiceUrl: 'voice_message_1.mp3', timestamp: '10:25 AM'),
-  ChatMessage(id: 'm7', sender: 'AgriExpert Sarah', text: 'I can share a basic one. Mix well-rotted compost with water, let it steep, and aerate it. I\'ll send a link to a detailed guide.', timestamp: '10:30 AM'),
-  ChatMessage(id: 'm8', sender: 'Me', text: 'Awesome, thanks!', timestamp: '10:35 AM'),
+  ChatMessage(
+    id: 'm1',
+    sender: 'Farmer John',
+    text: 'Hey, everyone! Just joined this group.',
+    timestamp: '10:00 AM',
+  ),
+  ChatMessage(
+    id: 'm2',
+    sender: 'Me',
+    text: 'Welcome John! What are you growing this season?',
+    timestamp: '10:05 AM',
+  ),
+  ChatMessage(
+    id: 'm3',
+    sender: 'Farmer John',
+    text: 'Mostly corn and some soybeans.',
+    timestamp: '10:10 AM',
+  ),
+  ChatMessage(
+    id: 'm4',
+    sender: 'AgriExpert Sarah',
+    text:
+        'If you have corn, consider organic fertilizers like compost tea. It really boosts soil health.',
+    timestamp: '10:15 AM',
+  ),
+  ChatMessage(
+    id: 'm5',
+    sender: 'Me',
+    text: 'That sounds interesting! Any specific recipes for compost tea?',
+    timestamp: '10:20 AM',
+  ),
+  ChatMessage(
+    id: 'm6',
+    sender: 'Farmer John',
+    voiceUrl: 'voice_message_1.mp3',
+    timestamp: '10:25 AM',
+  ),
+  ChatMessage(
+    id: 'm7',
+    sender: 'AgriExpert Sarah',
+    text:
+        'I can share a basic one. Mix well-rotted compost with water, let it steep, and aerate it. I\'ll send a link to a detailed guide.',
+    timestamp: '10:30 AM',
+  ),
+  ChatMessage(
+    id: 'm8',
+    sender: 'Me',
+    text: 'Awesome, thanks!',
+    timestamp: '10:35 AM',
+  ),
 ];
 
 class CommunityChatScreen extends StatefulWidget {
   final ForumPost postData;
   final VoidCallback? onBack;
 
-  const CommunityChatScreen({Key? key, required this.postData, this.onBack}) : super(key: key);
+  const CommunityChatScreen({Key? key, required this.postData, this.onBack})
+    : super(key: key);
 
   @override
   State<CommunityChatScreen> createState() => _CommunityChatScreenState();
 }
 
-class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTickerProviderStateMixin {
+class _CommunityChatScreenState extends State<CommunityChatScreen>
+    with SingleTickerProviderStateMixin {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
@@ -79,7 +123,9 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
       lowerBound: 1.0,
       upperBound: 1.2,
     );
-    _recordingAnim = _recordingAnimController.drive(Tween(begin: 1.0, end: 1.2));
+    _recordingAnim = _recordingAnimController.drive(
+      Tween(begin: 1.0, end: 1.2),
+    );
     WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
   }
 
@@ -121,7 +167,10 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
   void _handleVoiceRecordStart() {
     setState(() => _isRecording = true);
     _recordingAnimController.repeat(reverse: true);
-    _showDialog('Voice Recording', 'Recording voice message... Press and hold to record. Release to send.');
+    _showDialog(
+      'Voice Recording',
+      'Recording voice message... Press and hold to record. Release to send.',
+    );
   }
 
   void _handleVoiceRecordEnd() {
@@ -142,7 +191,10 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
   }
 
   void _handlePlayVoiceMessage(String url) {
-    _showDialog('Play Voice Message', 'Playing voice message from: $url (Mock)');
+    _showDialog(
+      'Play Voice Message',
+      'Playing voice message from: $url (Mock)',
+    );
   }
 
   void _showDialog(String title, String content) {
@@ -152,7 +204,10 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
         title: Text(title),
         content: Text(content),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK'))
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
         ],
       ),
     );
@@ -174,7 +229,7 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         constraints: const BoxConstraints(maxWidth: 320),
         decoration: BoxDecoration(
-          color: isMe ? const Color(0xFFDCF8C6) : Colors.white,
+          color: isMe ? Colors.blue.shade100 : Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: const Radius.circular(20),
             topRight: const Radius.circular(20),
@@ -206,7 +261,7 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
                 padding: const EdgeInsets.only(top: 2),
                 child: Text(
                   msg.text!,
-                  style: const TextStyle(fontSize: 16, color: Color(0xFF333333)),
+                  style: const TextStyle(fontSize: 16, color: Colors.black),
                 ),
               ),
             if (msg.voiceUrl != null)
@@ -215,17 +270,26 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
                 child: GestureDetector(
                   onTap: () => _handlePlayVoiceMessage(msg.voiceUrl!),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 12,
+                    ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF4CAF50),
+                      color: Colors.blue,
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: const [
-                        Text('▶️', style: TextStyle(fontSize: 18, color: Colors.white)),
+                        Text(
+                          '▶️',
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
                         SizedBox(width: 5),
-                        Text('Voice Message', style: TextStyle(color: Colors.white, fontSize: 14)),
+                        Text(
+                          'Voice Message',
+                          style: TextStyle(color: Colors.white, fontSize: 14),
+                        ),
                       ],
                     ),
                   ),
@@ -237,7 +301,7 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
                 padding: const EdgeInsets.only(top: 5),
                 child: Text(
                   msg.timestamp,
-                  style: const TextStyle(fontSize: 10, color: Color(0xFF666666)),
+                  style: const TextStyle(fontSize: 10, color: Colors.black),
                 ),
               ),
             ),
@@ -258,7 +322,10 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
             Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFF29CA9F), Color(0xFFFBE2BA)],
+                  colors: [
+                    Color(0xFF2196F3),
+                    Color.fromARGB(255, 173, 217, 253),
+                  ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   stops: [0, 0.6],
@@ -270,10 +337,13 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
                 // Header
                 Container(
                   margin: const EdgeInsets.only(top: 20, bottom: 15),
-                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 15,
+                    horizontal: 20,
+                  ),
                   width: MediaQuery.of(context).size.width * 0.9,
                   decoration: BoxDecoration(
-                    color: const Color(0x99367263),
+                    color: Colors.blue.shade300,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Colors.white.withOpacity(0.4)),
                     boxShadow: [
@@ -287,10 +357,14 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: widget.onBack ?? () => Navigator.of(context).pop(),
+                        onTap:
+                            widget.onBack ?? () => Navigator.of(context).pop(),
                         child: const Padding(
                           padding: EdgeInsets.only(right: 10),
-                          child: Text('←', style: TextStyle(fontSize: 28, color: Colors.white)),
+                          child: Text(
+                            '←',
+                            style: TextStyle(fontSize: 28, color: Colors.white),
+                          ),
                         ),
                       ),
                       Expanded(
@@ -335,41 +409,67 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
                         child: ListView.builder(
                           controller: _scrollController,
                           itemCount: _chatMessages.length,
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                          itemBuilder: (context, idx) => _buildMessageBubble(_chatMessages[idx]),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 10,
+                          ),
+                          itemBuilder: (context, idx) =>
+                              _buildMessageBubble(_chatMessages[idx]),
                         ),
                       ),
                       // Message input area
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 10, left: 10, right: 10, top: 10),
+                        padding: const EdgeInsets.only(
+                          bottom: 10,
+                          left: 10,
+                          right: 10,
+                          top: 10,
+                        ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Expanded(
                               child: ConstrainedBox(
-                                constraints: const BoxConstraints(maxHeight: 100),
+                                constraints: const BoxConstraints(
+                                  maxHeight: 100,
+                                ),
                                 child: TextField(
                                   controller: _messageController,
                                   minLines: 1,
                                   maxLines: 5,
-                                  style: const TextStyle(fontSize: 16, color: Color(0xFF333333)),
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Color(0xFF333333),
+                                  ),
                                   decoration: InputDecoration(
                                     hintText: "Type your message...",
-                                    hintStyle: const TextStyle(color: Color(0x99000000)),
+                                    hintStyle: const TextStyle(
+                                      color: Color(0x99000000),
+                                    ),
                                     filled: true,
                                     fillColor: Colors.white.withOpacity(0.95),
-                                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                      horizontal: 15,
+                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
-                                      borderSide: BorderSide(color: Colors.black.withOpacity(0.1)),
+                                      borderSide: BorderSide(
+                                        color: Colors.black.withOpacity(0.1),
+                                      ),
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
-                                      borderSide: BorderSide(color: Colors.black.withOpacity(0.1)),
+                                      borderSide: BorderSide(
+                                        color: Colors.black.withOpacity(0.1),
+                                      ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
-                                      borderSide: const BorderSide(color: Color(0xFF29CA9F), width: 2),
+                                      borderSide: const BorderSide(
+                                        color: Colors.blue,
+                                        width: 2,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -380,13 +480,18 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
                                 ? GestureDetector(
                                     onTap: _handleSendMessage,
                                     child: Container(
-                                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 10,
+                                        horizontal: 15,
+                                      ),
                                       decoration: BoxDecoration(
-                                        color: const Color(0xFF4CAF50),
+                                        color: Colors.blue,
                                         borderRadius: BorderRadius.circular(25),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.black.withOpacity(0.2),
+                                            color: Colors.black.withOpacity(
+                                              0.2,
+                                            ),
                                             offset: const Offset(0, 2),
                                             blurRadius: 3,
                                           ),
@@ -405,17 +510,23 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
                                 : ScaleTransition(
                                     scale: _recordingAnim,
                                     child: GestureDetector(
-                                      onLongPressStart: (_) => _handleVoiceRecordStart(),
-                                      onLongPressEnd: (_) => _handleVoiceRecordEnd(),
+                                      onLongPressStart: (_) =>
+                                          _handleVoiceRecordStart(),
+                                      onLongPressEnd: (_) =>
+                                          _handleVoiceRecordEnd(),
                                       child: Container(
                                         width: 45,
                                         height: 45,
                                         decoration: BoxDecoration(
                                           color: const Color(0xFFFFEB3B),
-                                          borderRadius: BorderRadius.circular(25),
+                                          borderRadius: BorderRadius.circular(
+                                            25,
+                                          ),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.black.withOpacity(0.2),
+                                              color: Colors.black.withOpacity(
+                                                0.2,
+                                              ),
                                               offset: const Offset(0, 2),
                                               blurRadius: 3,
                                             ),
@@ -424,7 +535,10 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
                                         child: const Center(
                                           child: Text(
                                             "🎤",
-                                            style: TextStyle(fontSize: 22, color: Color(0xFF333333)),
+                                            style: TextStyle(
+                                              fontSize: 22,
+                                              color: Color(0xFF333333),
+                                            ),
                                           ),
                                         ),
                                       ),
