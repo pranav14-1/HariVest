@@ -577,7 +577,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
     String? extra,
   }) {
     return Container(
-      height: 140,
+      height: 146,
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -598,21 +598,21 @@ class _WeatherScreenState extends State<WeatherScreen> {
           SizedBox(height: 10),
           Text(
             value,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           if (extra != null) ...[
             SizedBox(height: 4),
             Text(
               extra,
-              style: TextStyle(fontSize: 13, color: Colors.grey[700]),
+              style: TextStyle(fontSize: 11, color: Colors.grey[700]),
               textAlign: TextAlign.center,
             ),
           ],
           SizedBox(height: 6),
           Text(
             label,
-            style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+            style: TextStyle(fontSize: 12, color: Colors.grey[600]),
             textAlign: TextAlign.center,
           ),
         ],
