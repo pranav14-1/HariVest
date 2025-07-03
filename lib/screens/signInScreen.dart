@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -10,20 +11,50 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _isLoading = false;
 
-  void _handleSignIn() {
+  Future<void> _handleSignIn() async {
     final email = _emailController.text.trim();
-    final password = _passwordController.text;
+    final password = _passwordController.text.trim();
+
+    // Input validation
     if (email.isEmpty || password.isEmpty) {
       _showAlert('Please enter both email and password.');
       return;
     }
-    // Replace this with your real authentication logic
-    if (email == 'test@example.com' && password == 'password123') {
-      Navigator.pushReplacementNamed(context, '/home');
-    } else {
-      _showAlert('Invalid email or password.');
+
+    // Show loading indicator (optional)
+    setState(() => _isLoading = true);
+
+    try {
+      final userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      if (userCredential.user != null) {
+        Navigator.pushReplacementNamed(context, '/home');
+        return;
+      }
+
+      await Future.delayed(
+        const Duration(seconds: 1),
+      ); // Simulate network delay
+      if (email == 'test@example.com' && password == 'password123') {
+        Navigator.pushReplacementNamed(context, '/home');
+      } else {
+        _showAlert('Invalid email or password.');
+      }
+    } catch (e) {
+      _showAlert('Sign in failed. Please try again.\nError: $e');
+    } finally {
+      setState(() => _isLoading = false);
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
   }
 
   void _showAlert(String message) {

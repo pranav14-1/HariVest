@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -12,6 +13,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen>
     with SingleTickerProviderStateMixin {
+  bool _isLoading = false;
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -46,35 +48,67 @@ class _SignUpScreenState extends State<SignUpScreen>
     super.dispose();
   }
 
+  void _showAlert(String message) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Sign In Error'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
   void _animatePress(VoidCallback callback) async {
     await _buttonScaleController.reverse();
     await _buttonScaleController.forward();
     callback();
   }
 
-  void _handleSignUp() {
+  Future<void> _handleSignUp() async {
     final name = _nameController.text.trim();
     final email = _emailController.text.trim();
     final password = _passwordController.text;
 
-    if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty) {
-      widget.navigate('MainAppTabs');
-    } else {
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: const Text('Incomplete Form'),
-          content: const Text(
-            'Please fill all fields (Name, Email, and Password).',
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+    // Input validation BEFORE attempting sign up
+    if (name.isEmpty || email.isEmpty || password.isEmpty) {
+      _showAlert('Please fill all fields (Name, Email, and Password).');
+      return;
+    }
+
+    setState(() => _isLoading = true);
+
+    try {
+      // Firebase sign up
+      final userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+      // Optionally update the display name
+      if (userCredential.user != null && name.isNotEmpty) {
+        await userCredential.user!.updateDisplayName(name);
+      }
+
+      // Navigate to main app tabs or home screen
+      widget.navigate('');
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        _showAlert('This email is already in use.');
+      } else if (e.code == 'invalid-email') {
+        _showAlert('The email address is invalid.');
+      } else if (e.code == 'weak-password') {
+        _showAlert('The password is too weak.');
+      } else {
+        _showAlert('Sign up failed. Please try again.\n${e.message}');
+      }
+    } catch (e) {
+      _showAlert('An unexpected error occurred. Please try again.\n$e');
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 
@@ -297,11 +331,11 @@ class _SignUpScreenState extends State<SignUpScreen>
       obscureText: obscureText,
       autocorrect: autoCorrect,
       autofocus: false,
-      style: const TextStyle(color: Colors.white, fontSize: 16),
+      style: const TextStyle(color: Colors.black, fontSize: 16),
       cursorColor: const Color(0xFFFBBF24),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(color: Colors.white.withValues(alpha: 179)),
+        hintStyle: TextStyle(color: Colors.black.withValues(alpha: 179)),
         filled: true,
         fillColor: Colors.white.withValues(alpha: 38),
         contentPadding: const EdgeInsets.all(16),

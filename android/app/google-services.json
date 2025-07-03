@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "972072173725",
+    "project_id": "harivest",
+    "storage_bucket": "harivest.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972072173725:android:ddc6850d1c7262cca89474",
+        "android_client_info": {
+          "package_name": "com.example.pws"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd3hce6t7fAyNLCIT3gSAtQ1d3hFDlWUo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
