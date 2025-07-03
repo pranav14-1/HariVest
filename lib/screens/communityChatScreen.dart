@@ -1,42 +1,10 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-
-// ChatMessage model
-class ChatMessage {
-  final String id;
-  final String sender;
-  final String? text;
-  final String? voiceUrl;
-  final String timestamp;
-
-  ChatMessage({
-    required this.id,
-    required this.sender,
-    this.text,
-    this.voiceUrl,
-    required this.timestamp,
-  });
-}
-
-// ForumPost model (same as in forum screen)
-class ForumPost {
-  final String id;
-  final String user;
-  final String timestamp;
-  final String topic;
-  final String lastMessage;
-  final int messagesCount;
-  final bool voiceSupport;
-
-  ForumPost({
-    required this.id,
-    required this.user,
-    required this.timestamp,
-    required this.topic,
-    required this.lastMessage,
-    required this.messagesCount,
-    this.voiceSupport = false,
-  });
-}
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pws/models/chat_message.dart';
+import 'package:pws/models/forum_post.dart';
+import 'dart:io';
 
 // Mock chat messages
 final List<ChatMessage> mockChatMessages = [
@@ -74,7 +42,7 @@ final List<ChatMessage> mockChatMessages = [
   ChatMessage(
     id: 'm6',
     sender: 'Farmer John',
-    voiceUrl: 'voice_message_1.mp3',
+    voiceUrl: 'voice_message_1.aac',
     timestamp: '10:25 AM',
   ),
   ChatMessage(
@@ -97,7 +65,7 @@ class CommunityChatScreen extends StatefulWidget {
   final VoidCallback? onBack;
 
   const CommunityChatScreen({Key? key, required this.postData, this.onBack})
-    : super(key: key);
+      : super(key: key);
 
   @override
   State<CommunityChatScreen> createState() => _CommunityChatScreenState();
@@ -113,6 +81,11 @@ class _CommunityChatScreenState extends State<CommunityChatScreen>
   late AnimationController _recordingAnimController;
   late Animation<double> _recordingAnim;
   bool _isRecording = false;
+  bool _isSendingAudio = false;
+
+  final FlutterSoundRecorder _audioRecorder = FlutterSoundRecorder();
+  String? _recordedFilePath;
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   @override
   void initState() {
@@ -126,7 +99,12 @@ class _CommunityChatScreenState extends State<CommunityChatScreen>
     _recordingAnim = _recordingAnimController.drive(
       Tween(begin: 1.0, end: 1.2),
     );
+    _initRecorder();
     WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+  }
+
+  Future<void> _initRecorder() async {
+    await _audioRecorder.openRecorder();
   }
 
   @override
@@ -134,6 +112,8 @@ class _CommunityChatScreenState extends State<CommunityChatScreen>
     _messageController.dispose();
     _scrollController.dispose();
     _recordingAnimController.dispose();
+    _audioRecorder.closeRecorder();
+    _audioPlayer.dispose();
     super.dispose();
   }
 
@@ -164,37 +144,48 @@ class _CommunityChatScreenState extends State<CommunityChatScreen>
     }
   }
 
-  void _handleVoiceRecordStart() {
-    setState(() => _isRecording = true);
-    _recordingAnimController.repeat(reverse: true);
-    _showDialog(
-      'Voice Recording',
-      'Recording voice message... Press and hold to record. Release to send.',
-    );
-  }
+  Future<void> _startRecording() async {
+    final dir = await getTemporaryDirectory();
+    final filePath =
+        '${dir.path}/voice_${DateTime.now().millisecondsSinceEpoch}.aac';
 
-  void _handleVoiceRecordEnd() {
-    setState(() => _isRecording = false);
-    _recordingAnimController.stop();
-    _recordingAnimController.value = 1.0;
-    final newVoiceMessage = ChatMessage(
-      id: 'm${_chatMessages.length + 1}',
-      sender: 'Me',
-      voiceUrl: 'mock_voice_message.mp3',
-      timestamp: _formatTime(DateTime.now()),
+    await _audioRecorder.startRecorder(
+      toFile: filePath,
+      codec: Codec.aacADTS,
+      bitRate: 128000,
+      sampleRate: 44100,
     );
     setState(() {
-      _chatMessages.add(newVoiceMessage);
+      _isRecording = true;
+      _recordedFilePath = filePath;
     });
-    Future.delayed(const Duration(milliseconds: 150), _scrollToBottom);
-    _showDialog('Voice Message', 'Voice message sent! (Mock)');
   }
 
-  void _handlePlayVoiceMessage(String url) {
-    _showDialog(
-      'Play Voice Message',
-      'Playing voice message from: $url (Mock)',
-    );
+  Future<void> _stopRecordingAndSend() async {
+    final path = await _audioRecorder.stopRecorder();
+    setState(() {
+      _isRecording = false;
+      _isSendingAudio = true;
+    });
+
+    if (path != null && File(path).existsSync()) {
+      final newVoiceMessage = ChatMessage(
+        id: 'm${_chatMessages.length + 1}',
+        sender: 'Me',
+        voiceUrl: path,
+        timestamp: _formatTime(DateTime.now()),
+      );
+      setState(() {
+        _chatMessages.add(newVoiceMessage);
+        _isSendingAudio = false;
+      });
+      Future.delayed(const Duration(milliseconds: 150), _scrollToBottom);
+    }
+  }
+
+  void _handlePlayVoiceMessage(String path) async {
+    await _audioPlayer.stop();
+    await _audioPlayer.play(DeviceFileSource(path));
   }
 
   void _showDialog(String title, String content) {
@@ -510,18 +501,25 @@ class _CommunityChatScreenState extends State<CommunityChatScreen>
                                 : ScaleTransition(
                                     scale: _recordingAnim,
                                     child: GestureDetector(
-                                      onLongPressStart: (_) =>
-                                          _handleVoiceRecordStart(),
-                                      onLongPressEnd: (_) =>
-                                          _handleVoiceRecordEnd(),
+                                      onLongPressStart: (_) async {
+                                        await _startRecording();
+                                        _recordingAnimController
+                                            .repeat(reverse: true);
+                                      },
+                                      onLongPressEnd: (_) async {
+                                        _recordingAnimController.stop();
+                                        _recordingAnimController.value = 1.0;
+                                        await _stopRecordingAndSend();
+                                      },
                                       child: Container(
                                         width: 45,
                                         height: 45,
                                         decoration: BoxDecoration(
-                                          color: const Color(0xFFFFEB3B),
-                                          borderRadius: BorderRadius.circular(
-                                            25,
-                                          ),
+                                          color: _isRecording
+                                              ? Colors.redAccent
+                                              : const Color(0xFFFFEB3B),
+                                          borderRadius:
+                                              BorderRadius.circular(25),
                                           boxShadow: [
                                             BoxShadow(
                                               color: Colors.black.withOpacity(
@@ -532,10 +530,10 @@ class _CommunityChatScreenState extends State<CommunityChatScreen>
                                             ),
                                           ],
                                         ),
-                                        child: const Center(
+                                        child: Center(
                                           child: Text(
-                                            "🎤",
-                                            style: TextStyle(
+                                            _isRecording ? "⏺️" : "🎤",
+                                            style: const TextStyle(
                                               fontSize: 22,
                                               color: Color(0xFF333333),
                                             ),
@@ -547,6 +545,11 @@ class _CommunityChatScreenState extends State<CommunityChatScreen>
                           ],
                         ),
                       ),
+                      if (_isSendingAudio)
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: CircularProgressIndicator(),
+                        ),
                     ],
                   ),
                 ),

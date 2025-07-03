@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pws/models/forum_post.dart';
 import 'package:pws/screens/communityChatScreen.dart';
 
 class CommunityForumScreen extends StatelessWidget {

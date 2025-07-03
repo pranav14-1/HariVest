@@ -21,12 +21,28 @@ class _WeatherScreenState extends State<WeatherScreen> {
     'Hyderabad',
   ];
 
+  // Jedi planets and their custom messages
+  final Map<String, String> jediPlanets = {
+    'ahch-to': "Ahch-To: The birthplace of the Jedi Order. 'The Force will be with you. Always.'",
+    'coruscant': "Coruscant: Home of the Jedi Temple and the Jedi Council for millennia.",
+    'tython': "Tython: Where the Jedi began their journey to bring balance to the Force.",
+    'jedha': "Jedha: Sacred moon with ancient Jedi temples and a major site for Force pilgrims.",
+    'ossus': "Ossus: Ancient Jedi library world, home to the largest collection of Jedi texts.",
+    'bandomeer': "Bandomeer: Many Jedi served in the AgriCorps here, using the Force to help crops flourish.",
+    'lothal': "Lothal: Known for its farming communities and Jedi history.",
+    'ukio': "Ukio: Famous agriworld, associated with the Jedi AgriCorps and galactic food production.",
+    'salliche': "Salliche: A core world with strong agricultural ties and Jedi history.",
+    'taanab': "Taanab: A peaceful agriworld, sometimes visited by Jedi for diplomatic missions.",
+    'sorgan': "Sorgan: A remote farming world, a place of refuge for some Force users.",
+  };
+
   String city = 'Gurgaon';
   String searchCity = '';
   Map<String, dynamic>? currentWeather;
   List<Map<String, dynamic>> forecast = [];
   bool loading = false;
   String? error;
+  String? jediMessage;
 
   @override
   void initState() {
@@ -40,7 +56,18 @@ class _WeatherScreenState extends State<WeatherScreen> {
       error = null;
       currentWeather = null;
       forecast = [];
+      jediMessage = null;
     });
+
+    // Check for Jedi planet easter egg
+    final normalized = location.trim().toLowerCase();
+    if (jediPlanets.containsKey(normalized)) {
+      setState(() {
+        jediMessage = jediPlanets[normalized];
+        loading = false;
+      });
+      return;
+    }
 
     if (apiKey.isEmpty) {
       setState(() {
@@ -155,7 +182,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       color: Colors.blue.shade300,
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                        color: Colors.white.withValues(alpha: 102),
+                        color: Colors.white.withAlpha(102),
                       ),
                     ),
                     child: Column(
@@ -192,9 +219,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                       color: Colors.black,
                                     ),
                                     filled: true,
-                                    fillColor: Colors.white.withValues(
-                                      alpha: 26,
-                                    ),
+                                    fillColor: Colors.white.withAlpha(26),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(25),
                                       borderSide: BorderSide.none,
@@ -211,7 +236,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 ),
                               ),
                             ),
-                            // const SizedBox(width: 5),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 5,
@@ -222,7 +246,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 child: Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                    color: Colors.white.withValues(alpha: 38),
+                                    color: Colors.white.withAlpha(38),
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: const Text(
@@ -281,17 +305,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                     ),
                                     decoration: BoxDecoration(
                                       color: isActive
-                                          ? Colors.white.withValues(alpha: 76)
-                                          : Colors.white.withValues(alpha: 26),
+                                          ? Colors.white.withAlpha(76)
+                                          : Colors.white.withAlpha(26),
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
                                         color: isActive
-                                            ? Colors.white.withValues(
-                                                alpha: 128,
-                                              )
-                                            : Colors.white.withValues(
-                                                alpha: 51,
-                                              ),
+                                            ? Colors.white.withAlpha(128)
+                                            : Colors.white.withAlpha(51),
                                       ),
                                     ),
                                     child: Text(
@@ -313,6 +333,47 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       ],
                     ),
                   ),
+                  // Jedi Easter Egg Message
+                  if (jediMessage != null)
+                    Container(
+                      margin: EdgeInsets.only(top: height * 0.15),
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade900.withAlpha(220),
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(color: Colors.white.withAlpha(120)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.15),
+                            offset: const Offset(0, 3),
+                            blurRadius: 8,
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          const Text(
+                            "🌌 Jedi Lore Unlocked!",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            jediMessage!,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
                   // Loading
                   if (loading)
                     Padding(
@@ -368,7 +429,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       ),
                     ),
                   // Current Weather
-                  if (!loading && error == null && currentWeather != null)
+                  if (!loading && error == null && currentWeather != null && jediMessage == null)
                     Column(
                       children: [
                         Container(
@@ -376,10 +437,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           padding: const EdgeInsets.all(25),
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 76),
+                            color: Colors.white.withAlpha(76),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: Colors.white.withValues(alpha: 102),
+                              color: Colors.white.withAlpha(102),
                             ),
                           ),
                           child: Column(
@@ -438,7 +499,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           ),
                         ),
                         // Details grid
-                        // NEW CODE (no scrolling, equal spacing)
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Row(
@@ -479,7 +539,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       ],
                     ),
                   // 5-day Forecast
-                  if (!loading && error == null && forecast.isNotEmpty)
+                  if (!loading && error == null && forecast.isNotEmpty && jediMessage == null)
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -503,10 +563,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 margin: const EdgeInsets.only(right: 15),
                                 padding: const EdgeInsets.all(15),
                                 decoration: BoxDecoration(
-                                  color: Colors.white.withValues(alpha: 76),
+                                  color: Colors.white.withAlpha(76),
                                   borderRadius: BorderRadius.circular(15),
                                   border: Border.all(
-                                    color: Colors.white.withValues(alpha: 76),
+                                    color: Colors.white.withAlpha(76),
                                   ),
                                 ),
                                 child: Column(
