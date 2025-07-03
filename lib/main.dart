@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pws/screens/home_page.dart';
+import 'package:pws/screens/signUpScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,6 +10,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: HomeScreen());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SignUpScreen(
+        navigate: (route) {
+          // For now, just print or show a dialog
+          print('Navigate to: $route');
+        },
+      ),
+    );
   }
 }

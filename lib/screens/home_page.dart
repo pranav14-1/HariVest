@@ -23,15 +23,30 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    fadeController = AnimationController(vsync: this, duration: const Duration(milliseconds: 800));
-    slideController = AnimationController(vsync: this, duration: const Duration(milliseconds: 800));
-    scaleController = AnimationController(vsync: this, duration: const Duration(milliseconds: 800));
-    buttonSlideController = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
+    fadeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+    slideController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+    scaleController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+    buttonSlideController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
 
     fadeAnim = Tween<double>(begin: 0, end: 1).animate(fadeController);
     slideAnim = Tween<double>(begin: 50, end: 0).animate(slideController);
     scaleAnim = Tween<double>(begin: 0.8, end: 1).animate(scaleController);
-    buttonSlideAnim = Tween<double>(begin: 100, end: 0).animate(buttonSlideController);
+    buttonSlideAnim = Tween<double>(
+      begin: 100,
+      end: 0,
+    ).animate(buttonSlideController);
 
     fadeController.forward();
     slideController.forward();
@@ -65,7 +80,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF2DD4BF), Color(0xFF059669), Color(0xFF065F46)],
+                colors: [
+                  Color(0xFF2196F3), // Blue 500
+                  Color(0xFF90CAF9), // Light Blue 200
+                  Color(0xFFFFFFFF), // White
+                ],
                 stops: [0, 0.6, 1],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -144,14 +163,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.white.withOpacity(0.8), width: 4),
-                                ),
-                                child: ClipOval(
-                                  child: Image.asset(
-                                    'assets/farm-logo.png',
-                                    fit: BoxFit.contain,
+                                  border: Border.all(
+                                    color: Colors.white.withOpacity(0.8),
+                                    width: 4,
                                   ),
                                 ),
+                                //will add asset later
+
+                                // child: ClipOval(
+                                //   child: Image.asset(
+                                //     'assets/farm-logo.png',
+                                //     fit: BoxFit.contain,
+                                //   ),
+                                // ),
                               ),
                             ],
                           ),
@@ -185,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               height: 4,
                               margin: const EdgeInsets.only(top: 8, bottom: 16),
                               decoration: BoxDecoration(
-                                color: const Color(0xFFF59E0B),
+                                color: const Color(0xFFFFFFFF),
                                 borderRadius: BorderRadius.circular(2),
                               ),
                             ),
@@ -199,12 +223,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   height: 1.4,
                                 ),
                                 children: [
-                                  TextSpan(text: 'Revolutionizing agriculture with\n'),
+                                  TextSpan(
+                                    text: 'Revolutionizing agriculture with\n',
+                                  ),
                                   TextSpan(
                                     text: 'smart technology',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      color: Color(0xFFFBBF24),
+                                      color: Color(0xFFFFFFFF),
                                     ),
                                   ),
                                 ],
@@ -247,9 +273,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 }),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF0d6e5b),
+                                    color: Colors.blue.shade800,
                                     borderRadius: BorderRadius.circular(16),
-                                    border: Border.all(color: Colors.white.withOpacity(0.5), width: 2),
+                                    border: Border.all(
+                                      color: Colors.white.withOpacity(0.5),
+                                      width: 2,
+                                    ),
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.black.withOpacity(0.1),
@@ -258,7 +287,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       ),
                                     ],
                                   ),
-                                  padding: const EdgeInsets.symmetric(vertical: 20),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 20,
+                                  ),
                                   margin: const EdgeInsets.only(bottom: 16),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -290,9 +321,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 }),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF0d6e5b),
+                                    color: Colors.blue.shade800,
                                     borderRadius: BorderRadius.circular(16),
-                                    border: Border.all(color: Colors.white.withOpacity(0.5), width: 2),
+                                    border: Border.all(
+                                      color: Colors.white.withOpacity(0.5),
+                                      width: 2,
+                                    ),
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.black.withOpacity(0.1),
@@ -301,7 +335,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       ),
                                     ],
                                   ),
-                                  padding: const EdgeInsets.symmetric(vertical: 20),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 20,
+                                  ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: const [
@@ -371,10 +407,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               border: Border.all(color: Colors.white.withOpacity(0.3)),
             ),
             alignment: Alignment.center,
-            child: Text(
-              emoji,
-              style: const TextStyle(fontSize: 24),
-            ),
+            child: Text(emoji, style: const TextStyle(fontSize: 24)),
           ),
           const SizedBox(height: 8),
           Text(
