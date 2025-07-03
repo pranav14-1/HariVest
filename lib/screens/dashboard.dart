@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:pws/models/chat_bot.dart';
 
 final List<Map<String, dynamic>> mockMarketPrices = [
   {
@@ -83,7 +84,6 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   String? imagePath;
-  bool chatVisible = false;
   String moisture = '';
   String temperature = '';
   String ph = '';
@@ -93,6 +93,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   String? recommendationError;
   List<Map<String, dynamic>> marketPrices = [];
   bool loadingMarketPrices = false;
+  bool showChatBot = false;
 
   final ScrollController _marketScrollController = ScrollController();
   Timer? _marketScrollTimer;
@@ -721,28 +722,16 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                 ],
               ),
             ),
-            // Floating Chatbot Button (placeholder)
-            if (!chatVisible)
+            if (showChatBot)
+              ChatBot(onClose: () => setState(() => showChatBot = false)),
+            if (!showChatBot)
               Positioned(
                 bottom: 20,
                 right: 20,
                 child: FloatingActionButton(
                   backgroundColor: Colors.blueGrey,
-                  onPressed: () => setState(() => chatVisible = true),
+                  onPressed: () => setState(() => showChatBot = true),
                   child: const Icon(Icons.chat, color: Colors.white),
-                ),
-              ),
-            // Chatbot overlay (placeholder)
-            if (chatVisible)
-              Positioned.fill(
-                child: Container(
-                  color: Colors.black.withValues(alpha: 0.5),
-                  child: Center(
-                    child: ElevatedButton(
-                      onPressed: () => setState(() => chatVisible = false),
-                      child: const Text('Close Chatbot (Placeholder)'),
-                    ),
-                  ),
                 ),
               ),
           ],
