@@ -26,7 +26,8 @@ class CommunityForumScreen extends StatelessWidget {
       user: 'Grower Geeta',
       timestamp: '3 days ago',
       topic: 'Sharing tips for rainwater harvesting',
-      lastMessage: 'My new pond system saved me a lot this season. Anyone else?',
+      lastMessage:
+          'My new pond system saved me a lot this season. Anyone else?',
       messagesCount: 56,
       voiceSupport: true,
     ),
@@ -59,7 +60,10 @@ class CommunityForumScreen extends StatelessWidget {
             Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFF29CA9F), Color(0xFFFBE2BA)],
+                  colors: [
+                    Color(0xFF2196F3),
+                    Color.fromARGB(255, 173, 217, 253),
+                  ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   stops: [0, 0.6],
@@ -71,10 +75,15 @@ class CommunityForumScreen extends StatelessWidget {
                 // Header
                 Container(
                   width: double.infinity,
-                  margin: const EdgeInsets.only(top: 20, bottom: 25, left: 20, right: 20),
+                  margin: const EdgeInsets.only(
+                    top: 20,
+                    bottom: 25,
+                    left: 20,
+                    right: 20,
+                  ),
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   decoration: BoxDecoration(
-                    color: const Color(0x99367263),
+                    color: Colors.blue.shade300,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Colors.white.withOpacity(0.4)),
                     boxShadow: [
@@ -127,10 +136,7 @@ class CommunityForumScreen extends StatelessWidget {
                           color: Colors.white.withOpacity(0.95),
                           borderRadius: BorderRadius.circular(15),
                           border: Border(
-                            left: BorderSide(
-                              color: const Color(0xFF4CAF50),
-                              width: 5,
-                            ),
+                            left: BorderSide(color: Colors.blue, width: 5),
                           ),
                           boxShadow: [
                             BoxShadow(
@@ -146,7 +152,8 @@ class CommunityForumScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     item.user,
@@ -185,7 +192,8 @@ class CommunityForumScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: 10),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     '${item.messagesCount} messages',
@@ -197,7 +205,10 @@ class CommunityForumScreen extends StatelessWidget {
                                   ),
                                   if (item.voiceSupport)
                                     Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 4,
+                                      ),
                                       decoration: BoxDecoration(
                                         color: const Color(0xFFFFEB3B),
                                         borderRadius: BorderRadius.circular(10),
