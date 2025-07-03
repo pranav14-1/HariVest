@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pws/screens/communityForumScreen.dart';
 import 'package:pws/screens/crop_calendar_screen.dart';
 import 'package:pws/screens/dashboard.dart';
 import 'package:pws/screens/reminder_screen.dart';
@@ -16,6 +17,7 @@ class _NavbarState extends State<Navbar> {
   int selectedIndex = 2;
 
   final List<Widget> pages = [
+    CommunityForumScreen(),
     CropCalendarScreen(),
     WeatherScreen(),
     Dashboard(),
@@ -38,6 +40,10 @@ class _NavbarState extends State<Navbar> {
             });
           },
           items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.group),
+              label: 'Community',
+            ),
             BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today),
               label: 'Calendar',
