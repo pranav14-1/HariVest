@@ -30,18 +30,13 @@ class _SignInScreenState extends State<SignInScreen> {
       final userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (userCredential.user != null) {
-        Navigator.pushReplacementNamed(context, '/home');
+        Navigator.pushReplacementNamed(context, '/dashboard');
         return;
       }
 
       await Future.delayed(
         const Duration(seconds: 1),
-      ); // Simulate network delay
-      if (email == 'test@example.com' && password == 'password123') {
-        Navigator.pushReplacementNamed(context, '/home');
-      } else {
-        _showAlert('Invalid email or password.');
-      }
+      ); 
     } catch (e) {
       _showAlert('Sign in failed. Please try again.\nError: $e');
     } finally {
