@@ -13,7 +13,7 @@ class Navbar extends StatefulWidget {
 }
 
 class _NavbarState extends State<Navbar> {
-  int selectedIndex = 2;
+  int selectedIndex = 3;
 
   final List<Widget> pages = [
     CommunityForumScreen(key: ValueKey('Community')),
