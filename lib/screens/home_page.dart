@@ -170,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 ),
                                 child: ClipOval(
                                   child: Image.asset(
-                                    'assets/farm-logo.png',
+                                    'assets/images/farm-logo.png',
                                     fit: BoxFit.contain,
                                   ),
                                 ),
