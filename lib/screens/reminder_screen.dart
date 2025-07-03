@@ -1,34 +1,115 @@
 import 'package:flutter/material.dart';
-
-// --- MOCK DATA FOR FARMER SCHEMES ---
-class Scheme {
-  final String id;
-  final String name;
-  final String description;
-  final String launchDate;
-  final String status; // 'previous' | 'upcoming' | 'newly-launched'
-  final String? link;
-  final List<String> benefits;
-  final List<String> eligibility;
-
-  Scheme({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.launchDate,
-    required this.status,
-    this.link,
-    required this.benefits,
-    required this.eligibility,
-  });
-}
+import 'package:pws/models/scheme.dart';
 
 final List<Scheme> mockSchemes = [
   Scheme(
     id: 'scheme1',
+    name: 'PM-KISAN Samman Nidhi (17th Installment)',
+    description:
+        'Direct income support of ₹6,000/year to all landholding farmer families, paid in three equal installments. Aadhaar verification and new registration drives are ongoing.',
+    launchDate: 'June 2025',
+    status: 'upcoming',
+    link: 'https://pmkisan.gov.in/',
+    benefits: [
+      'Direct cash transfer to farmers’ bank accounts',
+      'Financial support for agricultural inputs',
+      'Easy online registration and tracking',
+    ],
+    eligibility: [
+      'All landholding farmer families, subject to exclusion criteria (e.g., income tax payers, institutional landholders).',
+    ],
+  ),
+  Scheme(
+    id: 'scheme2',
+    name: 'National Mission on Natural Farming (NMNF) Expansion',
+    description:
+        'Promotes chemical-free, natural farming. In 2024, expanded to cover more states with incentives for bio-inputs, farmer training, and market linkage for natural produce.',
+    launchDate: 'April 2024',
+    status: 'upcoming',
+    link: 'https://agricoop.gov.in/',
+    benefits: [
+      'Financial assistance for adopting natural farming',
+      'Training and capacity building',
+      'Support for bio-input production units',
+    ],
+    eligibility: [
+      'Small and marginal farmers, FPOs, and SHGs engaged in natural farming.',
+    ],
+  ),
+  Scheme(
+    id: 'scheme3',
+    name: 'Drone Didi Yojana',
+    description:
+        'Empowers women’s self-help groups (SHGs) to operate agricultural drones for crop monitoring and spraying. Subsidies and training provided for drone purchase and operation.',
+    launchDate: 'January 2025',
+    status: 'upcoming',
+    link: 'https://pib.gov.in/',
+    benefits: [
+      'Subsidized drones for SHGs',
+      'Training and certification for women operators',
+      'Promotes precision agriculture and women’s entrepreneurship',
+    ],
+    eligibility: [
+      'Registered women’s self-help groups (SHGs) in rural areas.',
+    ],
+  ),
+  Scheme(
+    id: 'scheme4',
+    name: 'Climate Smart Villages 2.0',
+    description:
+        'Expanded in 2024, this initiative focuses on climate-resilient crops, water conservation, and digital weather advisory services. Includes IoT-based soil and weather sensors in pilot districts.',
+    launchDate: 'July 2024',
+    status: 'upcoming',
+    link: 'https://agricoop.gov.in/',
+    benefits: [
+      'Access to climate-resilient seeds',
+      'Subsidies for micro-irrigation and water harvesting',
+      'Real-time weather and soil health alerts',
+    ],
+    eligibility: [
+      'Farmers in selected climate-vulnerable districts.',
+    ],
+  ),
+  Scheme(
+    id: 'scheme5',
+    name: 'Agri-Startup Challenge 2025',
+    description:
+        'A new grant and incubation program for agri-tech startups, focusing on AI, IoT, and sustainable solutions for smallholder farmers. Winners receive funding, mentorship, and pilot opportunities.',
+    launchDate: 'March 2025',
+    status: 'upcoming',
+    link: 'https://www.startupindia.gov.in/',
+    benefits: [
+      'Seed funding and incubation',
+      'Pilot projects with government support',
+      'Access to agri-business networks',
+    ],
+    eligibility: [
+      'Registered Indian startups in the agriculture sector.',
+    ],
+  ),
+  Scheme(
+    id: 'scheme6',
+    name: 'Digital Crop Survey (DCS) 2.0',
+    description:
+        'Nationwide rollout of digital crop survey using satellite and mobile app data for accurate crop area records, enabling better insurance, subsidy, and disaster relief targeting.',
+    launchDate: '2024–2025',
+    status: 'upcoming',
+    link: 'https://pib.gov.in/',
+    benefits: [
+      'Accurate crop data for all farmers',
+      'Faster insurance and disaster compensation',
+      'Reduced paperwork for government schemes',
+    ],
+    eligibility: [
+      'All farmers participating in government crop schemes.',
+    ],
+  ),
+  // Example of a previous scheme (for tab separation)
+  Scheme(
+    id: 'scheme7',
     name: 'Pradhan Mantri Fasal Bima Yojana (PMFBY)',
     description:
-        'A scheme to provide insurance coverage and financial support to farmers in the event of failure of any of the notified crops as a result of natural calamities, pests & diseases.',
+        'Insurance coverage and financial support to farmers in the event of failure of notified crops as a result of natural calamities, pests & diseases.',
     launchDate: 'February 2016',
     status: 'previous',
     link: 'https://pmfby.gov.in/',
@@ -42,10 +123,10 @@ final List<Scheme> mockSchemes = [
     ],
   ),
   Scheme(
-    id: 'scheme2',
+    id: 'scheme8',
     name: 'Kisan Credit Card (KCC) Scheme',
     description:
-        'A scheme to provide adequate and timely credit support to farmers for their cultivation needs, purchase of agricultural inputs, and post-harvest expenses.',
+        'Adequate and timely credit support to farmers for their cultivation needs, purchase of agricultural inputs, and post-harvest expenses.',
     launchDate: 'August 1998',
     status: 'previous',
     link: 'https://pmkisan.gov.in/KccApplication.aspx',
@@ -59,10 +140,10 @@ final List<Scheme> mockSchemes = [
     ],
   ),
   Scheme(
-    id: 'scheme3',
+    id: 'scheme9',
     name: 'Soil Health Card Scheme',
     description:
-        'A program launched to help farmers improve productivity through judicious use of fertilizers by providing soil nutrient status to farmers.',
+        'Helps farmers improve productivity through judicious use of fertilizers by providing soil nutrient status to farmers.',
     launchDate: 'February 2015',
     status: 'previous',
     link: 'https://www.soilhealth.dac.gov.in/',
@@ -74,10 +155,10 @@ final List<Scheme> mockSchemes = [
     eligibility: ['All farmers can get a Soil Health Card.'],
   ),
   Scheme(
-    id: 'scheme4',
+    id: 'scheme10',
     name: 'National Agriculture Market (e-NAM)',
     description:
-        'An online trading platform for agricultural commodities in India. The platform facilitates farmers, traders, and buyers with online trading in commodities.',
+        'An online trading platform for agricultural commodities in India, facilitating farmers, traders, and buyers with online trading.',
     launchDate: 'April 2016',
     status: 'previous',
     link: 'https://www.enam.gov.in/',
@@ -88,71 +169,7 @@ final List<Scheme> mockSchemes = [
     ],
     eligibility: ['Farmers who are members of APMCs connected to e-NAM.'],
   ),
-  // Upcoming/Newly Launched Schemes
-  Scheme(
-    id: 'scheme5',
-    name: 'PM-KISAN Samman Nidhi (Latest Installment)',
-    description:
-        'Direct income support to all landholding farmer families in India. Details on the next installment release and new registration drives.',
-    launchDate: 'Expected Q3 2024',
-    status: 'upcoming',
-    link: 'https://pmkisan.gov.in/',
-    benefits: [
-      'Direct income support for farmers',
-      'Financial assistance for agricultural needs',
-    ],
-    eligibility: [
-      'All landholding farmer families, subject to certain exclusion criteria.',
-    ],
-  ),
-  Scheme(
-    id: 'scheme6',
-    name: 'New Drone Technology Adoption Program',
-    description:
-        'A proposed scheme to subsidize the purchase and use of agricultural drones for precision farming, spraying, and monitoring.',
-    launchDate: 'Expected Early 2025',
-    status: 'upcoming',
-    benefits: [
-      'Promotes precision agriculture',
-      'Reduces labor costs',
-      'Efficient application of inputs',
-    ],
-    eligibility: [
-      'Farmer producer organizations (FPOs), individual farmers with certain land holdings.',
-    ],
-  ),
-  Scheme(
-    id: 'scheme7',
-    name: 'Climate-Resilient Agriculture Initiative',
-    description:
-        'A newly launched initiative focusing on sustainable farming practices, water conservation, and development of climate-resistant crop varieties.',
-    launchDate: 'June 2024',
-    status: 'newly-launched',
-    link: 'https://example.gov.in/climate-resilience',
-    benefits: [
-      'Sustainable farming',
-      'Improved water efficiency',
-      'New crop varieties for extreme weather',
-    ],
-    eligibility: ['Farmers in identified climate-vulnerable regions.'],
-  ),
-  Scheme(
-    id: 'scheme8',
-    name: 'Agri-Tech Startup Incubation Grant',
-    description:
-        'A new grant program to support agricultural technology startups focusing on innovative solutions for small and marginal farmers.',
-    launchDate: 'May 2024',
-    status: 'newly-launched',
-    link: 'https://example.gov.in/agri-tech-grants',
-    benefits: [
-      'Funding for innovation',
-      'Job creation in rural areas',
-      'Development of farmer-centric tech',
-    ],
-    eligibility: ['Registered Agri-Tech startups with a valid business plan.'],
-  ),
 ];
-// --- END MOCK DATA FOR FARMER SCHEMES ---
 
 class ReminderScreen extends StatefulWidget {
   const ReminderScreen({Key? key}) : super(key: key);
