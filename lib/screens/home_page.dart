@@ -268,9 +268,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           child: Column(
                             children: [
                               GestureDetector(
-                                onTap: () => animatePress(() {
-                                  // For now, do nothing. Add navigation logic later.
-                                }),
+                                onTap: () =>  {
+                                  Navigator.pushNamed(context, '/login')
+                                },
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.blue.shade800,
@@ -279,13 +279,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       color: Colors.white.withOpacity(0.5),
                                       width: 2,
                                     ),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
-                                        offset: const Offset(0, 4),
-                                        blurRadius: 8,
-                                      ),
-                                    ],
                                   ),
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 20,
@@ -316,9 +309,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () => animatePress(() {
-                                  // For now, do nothing. Add navigation logic later.
-                                }),
+                                onTap: () =>  {
+                                  Navigator.pushNamed(context, '/signup')
+                                },
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.blue.shade800,
@@ -327,13 +320,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       color: Colors.white.withOpacity(0.5),
                                       width: 2,
                                     ),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
-                                        offset: const Offset(0, 4),
-                                        blurRadius: 8,
-                                      ),
-                                    ],
                                   ),
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 20,

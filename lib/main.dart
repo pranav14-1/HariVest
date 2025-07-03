@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pws/screens/dashboard.dart';
-import 'package:pws/screens/reminder_screen.dart';
-import 'package:pws/screens/settings_screen.dart';
+import 'package:pws/screens/home_page.dart';
+import 'package:pws/screens/signInScreen.dart';
 import 'package:pws/screens/signUpScreen.dart';
-import 'package:pws/screens/splash_screen.dart';
-import 'package:pws/screens/weather_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +14,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WeatherScreen(),
+      home: HomeScreen(),
+      routes: {
+        '/home': (context) => HomeScreen(),
+        '/login': (context) => SignInScreen(),
+        '/signup': (context) => SignUpScreen(
+          navigate: (routename) {
+            Navigator.pushNamed(context, '/login');
+          },
+        ),
+      },
     );
   }
 }
