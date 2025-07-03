@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:pws/models/camera.dart';
+import 'package:pws/models/pick_image.dart';
 import 'package:pws/models/chat_bot.dart';
 import 'package:pws/screens/settings_screen.dart';
 
@@ -179,6 +179,71 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     });
   }
 
+  String generateSoilRecommendation({
+    required String moisture,
+    required String temperature,
+    required String ph,
+    required String nitrogen,
+  }) {
+    final List<String> recs = [];
+
+    // Moisture
+    final double? m = double.tryParse(moisture);
+    if (m == null) {
+      recs.add("• Please enter a valid soil moisture value.");
+    } else if (m < 20) {
+      recs.add(
+        "• Soil is too dry. Increase irrigation to maintain optimal moisture.",
+      );
+    } else if (m > 80) {
+      recs.add("• Soil is too wet. Improve drainage or reduce watering.");
+    } else {
+      recs.add("• Soil moisture is optimal.");
+    }
+
+    // Temperature
+    final double? t = double.tryParse(temperature);
+    if (t == null) {
+      recs.add("• Please enter a valid soil temperature.");
+    } else if (t < 15) {
+      recs.add(
+        "• Soil temperature is too low. Consider mulching to retain warmth.",
+      );
+    } else if (t > 35) {
+      recs.add(
+        "• Soil temperature is too high. Provide shade or irrigate during cooler hours.",
+      );
+    } else {
+      recs.add("• Soil temperature is good for most crops.");
+    }
+
+    // pH
+    final double? p = double.tryParse(ph);
+    if (p == null) {
+      recs.add("• Please enter a valid pH value.");
+    } else if (p < 6.0) {
+      recs.add("• Soil is acidic. Add lime to raise pH.");
+    } else if (p > 7.5) {
+      recs.add("• Soil is alkaline. Add organic matter or sulfur to lower pH.");
+    } else {
+      recs.add("• Soil pH is balanced.");
+    }
+
+    // Nitrogen
+    final double? n = double.tryParse(nitrogen);
+    if (n == null) {
+      recs.add("• Please enter a valid nitrogen value.");
+    } else if (n < 20) {
+      recs.add("• Nitrogen is low. Apply nitrogen-rich fertilizer.");
+    } else if (n > 40) {
+      recs.add("• Nitrogen is high. Avoid further nitrogen fertilization.");
+    } else {
+      recs.add("• Nitrogen level is good.");
+    }
+
+    return recs.join('\n');
+  }
+
   Map<String, dynamic> getParameterStatus(String value, String type) {
     if (value.isEmpty) return {'color': Colors.blue, 'text': 'Enter value'};
     final numValue = double.tryParse(value) ?? 0;
@@ -212,8 +277,12 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     });
     await Future.delayed(const Duration(seconds: 2));
     setState(() {
-      recommendations =
-          "This is a mock recommendation. Adjust irrigation, maintain pH, and monitor nitrogen for optimal crop growth.";
+      recommendations = generateSoilRecommendation(
+        moisture: moisture,
+        temperature: temperature,
+        ph: ph,
+        nitrogen: nitrogen,
+      );
       loadingRecommendations = false;
     });
   }
@@ -460,7 +529,6 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                                                     ),
                                                   ],
                                                 ),
-                                                const Spacer(),
                                                 Text(
                                                   'Mandi: ${crop['mandi']}',
                                                   style: const TextStyle(
@@ -695,7 +763,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: InkWell(
-                            onTap: openCamera,
+                            onTap: () => pickImage(context),
                             borderRadius: BorderRadius.circular(16),
                             child: const Column(
                               children: [
