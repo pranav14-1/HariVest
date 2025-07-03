@@ -10,7 +10,10 @@ class SettingsScreen extends StatelessWidget {
         title: Text(title),
         content: Text(message),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text("OK")),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("OK"),
+          ),
         ],
       ),
     );
@@ -56,7 +59,7 @@ class SettingsScreen extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF29ca9f), Color(0xFFFBE2BA)],
+                colors: [Color(0xFF2196F3), Color.fromARGB(255, 173, 217, 253)],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 stops: [0, 0.6],
@@ -70,9 +73,12 @@ class SettingsScreen extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.9,
                   margin: const EdgeInsets.only(top: 20, bottom: 25),
-                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 15,
+                    horizontal: 20,
+                  ),
                   decoration: BoxDecoration(
-                    color: const Color(0x99367263),
+                    color: Colors.blue.shade300,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Colors.white.withOpacity(0.4)),
                     boxShadow: [
@@ -107,86 +113,111 @@ class SettingsScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         // Account Section
-                        _section(
-                          "Account",
-                          [
-                            _settingItem(
-                              icon: "👤",
-                              iconColor: const Color(0xFFFBBF24),
-                              label: "Edit Profile",
-                              onTap: () => _navigateTo(context, "EditProfile"),
-                            ),
-                            _settingItem(
-                              icon: "🔑",
-                              iconColor: const Color(0xFFF59E0B),
-                              label: "Change Password",
-                              onTap: () => _navigateTo(context, "ChangePassword"),
-                            ),
-                          ],
-                        ),
+                        _section("Account", [
+                          _settingItem(
+                            icon: "👤",
+                            iconColor: const Color(0xFFFBBF24),
+                            label: "Edit Profile",
+                            onTap: () => _navigateTo(context, "EditProfile"),
+                          ),
+                          _settingItem(
+                            icon: "🔑",
+                            iconColor: const Color(0xFFF59E0B),
+                            label: "Change Password",
+                            onTap: () => _navigateTo(context, "ChangePassword"),
+                          ),
+                        ]),
                         // General Section
-                        _section(
-                          "General",
-                          [
-                            _settingItem(
-                              icon: "🔔",
-                              iconColor: const Color(0xFF3B82F6),
-                              label: "Notifications",
-                              onTap: () => _showAlert(context, "Notifications", "Go to notification settings"),
+                        _section("General", [
+                          _settingItem(
+                            icon: "🔔",
+                            iconColor: const Color(0xFF3B82F6),
+                            label: "Notifications",
+                            onTap: () => _showAlert(
+                              context,
+                              "Notifications",
+                              "Go to notification settings",
                             ),
-                            _settingItem(
-                              icon: "🌐",
-                              iconColor: const Color(0xFFEF4444),
-                              label: "Language",
-                              onTap: () => _showAlert(context, "Language", "Change app language"),
+                          ),
+                          _settingItem(
+                            icon: "🌐",
+                            iconColor: const Color(0xFFEF4444),
+                            label: "Language",
+                            onTap: () => _showAlert(
+                              context,
+                              "Language",
+                              "Change app language",
                             ),
-                            _settingItem(
-                              icon: "📏",
-                              iconColor: const Color(0xFF8B5CF6),
-                              label: "Units of Measurement",
-                              onTap: () => _showAlert(context, "Units of Measurement", "Change measurement units"),
+                          ),
+                          _settingItem(
+                            icon: "📏",
+                            iconColor: const Color(0xFF8B5CF6),
+                            label: "Units of Measurement",
+                            onTap: () => _showAlert(
+                              context,
+                              "Units of Measurement",
+                              "Change measurement units",
                             ),
-                          ],
-                        ),
-                        // Legal & About Section
-                        _section(
-                          "Legal & About",
-                          [
-                            _settingItem(
-                              icon: "📄",
-                              iconColor: const Color(0xFF6B7280),
-                              label: "Privacy Policy",
-                              onTap: () => _showAlert(context, "Privacy Policy", "Show privacy policy"),
+                          ),
+                        ]),
+                        // About Section
+                        _section("About", [
+                          // _settingItem(
+                          //   icon: "📄",
+                          //   iconColor: const Color(0xFF6B7280),
+                          //   label: "Privacy Policy",
+                          //   onTap: () => _showAlert(
+                          //     context,
+                          //     "Privacy Policy",
+                          //     "Show privacy policy",
+                          //   ),
+                          // ),
+                          // _settingItem(
+                          //   icon: "⚖️",
+                          //   iconColor: const Color(0xFF6B7280),
+                          //   label: "Terms of Service",
+                          //   onTap: () => _showAlert(
+                          //     context,
+                          //     "Terms of Service",
+                          //     "Show terms of service",
+                          //   ),
+                          // ),
+                          // _settingItem(
+                          //   icon: "❓",
+                          //   iconColor: const Color(0xFFFBBF24),
+                          //   label: "Help & Support",
+                          //   onTap: () => _showAlert(
+                          //     context,
+                          //     "Help & Support",
+                          //     "Get help and support",
+                          //   ),
+                          // ),
+                          _settingItem(
+                            icon: "📱",
+                            iconColor: const Color(0xFF9CA3AF),
+                            label: "App Version",
+                            trailing: const Text(
+                              "v1.0.0",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFF888888),
+                              ),
                             ),
-                            _settingItem(
-                              icon: "⚖️",
-                              iconColor: const Color(0xFF6B7280),
-                              label: "Terms of Service",
-                              onTap: () => _showAlert(context, "Terms of Service", "Show terms of service"),
-                            ),
-                            _settingItem(
-                              icon: "❓",
-                              iconColor: const Color(0xFFFBBF24),
-                              label: "Help & Support",
-                              onTap: () => _showAlert(context, "Help & Support", "Get help and support"),
-                            ),
-                            _settingItem(
-                              icon: "📱",
-                              iconColor: const Color(0xFF9CA3AF),
-                              label: "App Version",
-                              trailing: const Text("v1.0.0", style: TextStyle(fontSize: 14, color: Color(0xFF888888))),
-                              onTap: null,
-                            ),
-                          ],
-                        ),
+                            onTap: null,
+                          ),
+                        ]),
                         // Sign Out Button
                         Container(
                           margin: const EdgeInsets.only(top: 10, bottom: 20),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFFDC2626),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 15,
+                              ),
                               elevation: 5,
                               shadowColor: const Color(0xFFDC2626),
                             ),
@@ -234,8 +265,12 @@ class SettingsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.05),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
-              border: const Border(bottom: BorderSide(color: Color(0x1A000000))),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(15),
+              ),
+              border: const Border(
+                bottom: BorderSide(color: Color(0x1A000000)),
+              ),
             ),
             child: Text(
               title,
@@ -268,13 +303,24 @@ class SettingsScreen extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Text(icon, style: TextStyle(fontSize: 20, color: iconColor), textAlign: TextAlign.center),
+            Text(
+              icon,
+              style: TextStyle(fontSize: 20, color: iconColor),
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(width: 15),
             Expanded(
-              child: Text(label, style: const TextStyle(fontSize: 16, color: Color(0xFF333333))),
+              child: Text(
+                label,
+                style: const TextStyle(fontSize: 16, color: Color(0xFF333333)),
+              ),
             ),
             trailing ??
-                const Icon(Icons.chevron_right, color: Color(0xFF777777), size: 20),
+                const Icon(
+                  Icons.chevron_right,
+                  color: Color(0xFF777777),
+                  size: 20,
+                ),
           ],
         ),
       ),
