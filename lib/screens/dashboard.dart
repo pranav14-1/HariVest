@@ -177,7 +177,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   }
 
   Map<String, dynamic> getParameterStatus(String value, String type) {
-    if (value.isEmpty) return {'color': Colors.blueGrey, 'text': 'Enter value'};
+    if (value.isEmpty) return {'color': Colors.blue, 'text': 'Enter value'};
     final numValue = double.tryParse(value) ?? 0;
     switch (type) {
       case 'moisture':
@@ -197,7 +197,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         if (numValue > 40) return {'color': Colors.orange, 'text': 'High'};
         return {'color': Colors.green, 'text': 'Good'};
       default:
-        return {'color': Colors.blueGrey, 'text': 'Enter value'};
+        return {'color': Colors.blue, 'text': 'Enter value'};
     }
   }
 
@@ -493,48 +493,54 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                               ),
                             ),
                             const SizedBox(height: 15),
-                            Wrap(
-                              spacing: 15,
-                              runSpacing: 15,
-                              alignment: WrapAlignment.spaceEvenly,
-                              runAlignment: WrapAlignment.center,
-                              children: [
-                                _buildParameterCard(
-                                  '💧',
-                                  'Soil Moisture',
-                                  'Percentage (%)',
-                                  moisture,
-                                  (v) => setState(() => moisture = v),
-                                  getParameterStatus(moisture, 'moisture'),
+                            SizedBox(
+                              height: 220,
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
                                 ),
-                                _buildParameterCard(
-                                  '🌡️',
-                                  'Soil Temperature',
-                                  'Celsius (°C)',
-                                  temperature,
-                                  (v) => setState(() => temperature = v),
-                                  getParameterStatus(
-                                    temperature,
-                                    'temperature',
+                                children: [
+                                  _buildParameterCard(
+                                    '💧',
+                                    'Soil Moisture',
+                                    'Percentage (%)',
+                                    moisture,
+                                    (v) => setState(() => moisture = v),
+                                    getParameterStatus(moisture, 'moisture'),
                                   ),
-                                ),
-                                _buildParameterCard(
-                                  '⚗️',
-                                  'pH Level',
-                                  'Acidity (0-14)',
-                                  ph,
-                                  (v) => setState(() => ph = v),
-                                  getParameterStatus(ph, 'ph'),
-                                ),
-                                _buildParameterCard(
-                                  '🧪',
-                                  'Nitrogen Level',
-                                  'PPM (mg/kg)',
-                                  nitrogen,
-                                  (v) => setState(() => nitrogen = v),
-                                  getParameterStatus(nitrogen, 'nitrogen'),
-                                ),
-                              ],
+                                  const SizedBox(width: 15),
+                                  _buildParameterCard(
+                                    '🌡️',
+                                    'Soil Temperature',
+                                    'Celsius (°C)',
+                                    temperature,
+                                    (v) => setState(() => temperature = v),
+                                    getParameterStatus(
+                                      temperature,
+                                      'temperature',
+                                    ),
+                                  ),
+                                  const SizedBox(width: 15),
+                                  _buildParameterCard(
+                                    '⚗️',
+                                    'pH Level',
+                                    'Acidity (0-14)',
+                                    ph,
+                                    (v) => setState(() => ph = v),
+                                    getParameterStatus(ph, 'ph'),
+                                  ),
+                                  const SizedBox(width: 15),
+                                  _buildParameterCard(
+                                    '🧪',
+                                    'Nitrogen Level',
+                                    'PPM (mg/kg)',
+                                    nitrogen,
+                                    (v) => setState(() => nitrogen = v),
+                                    getParameterStatus(nitrogen, 'nitrogen'),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -758,7 +764,8 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       TextPosition(offset: controller.text.length),
     );
     return Container(
-      width: (MediaQuery.of(context).size.width - 55) / 2,
+      width: 155,
+      height: 220,
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.9),
         borderRadius: BorderRadius.circular(16),
@@ -767,63 +774,66 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(14),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
+          // Top section: emoji, label, unit
+          Column(
             children: [
               CircleAvatar(
                 backgroundColor: Colors.grey.shade100,
-                child: Text(emoji, style: const TextStyle(fontSize: 20)),
+                radius: 22,
+                child: Text(emoji, style: const TextStyle(fontSize: 22)),
               ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      label,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
-                    ),
-                    Text(
-                      unit,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  ],
+              const SizedBox(height: 10),
+              Text(
+                label,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,
+                  color: Colors.black,
                 ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(
+                unit,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 12, color: Colors.black54),
               ),
             ],
           ),
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'eg. 50',
-              hintStyle: TextStyle(
-                color: status['color'].withValues(alpha: 0.4),
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
-                  color: status['color'].withValues(alpha: 0.3),
+          // Middle section: TextField
+          SizedBox(
+            width: double.infinity,
+            child: TextField(
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                hintText: 'eg. 50',
+                hintStyle: TextStyle(
+                  color: status['color'].withValues(alpha: 0.4),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    color: status['color'].withValues(alpha: 0.3),
+                  ),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 8,
                 ),
               ),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 15,
-                vertical: 10,
-              ),
+              keyboardType: TextInputType.number,
+              onChanged: onChanged,
+              controller: controller,
             ),
-            keyboardType: TextInputType.number,
-            onChanged: onChanged,
-            controller: controller,
           ),
-          const SizedBox(height: 8),
+          // Bottom section: Status
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
               color: status['color'],
               borderRadius: BorderRadius.circular(20),
@@ -835,6 +845,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),
+              textAlign: TextAlign.center,
             ),
           ),
         ],
