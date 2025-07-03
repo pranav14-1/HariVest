@@ -1,15 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:pws/screens/dashboard.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:pws/screens/home_page.dart';
-import 'package:pws/screens/main_page.dart';
 import 'package:pws/screens/signInScreen.dart';
-import 'package:pws/screens/crop_calendar_screen.dart';
-import 'package:pws/screens/reminder_screen.dart';
-import 'package:pws/screens/settings_screen.dart';
 import 'package:pws/screens/signUpScreen.dart';
-import 'package:pws/screens/splash_screen.dart';
-import 'package:pws/screens/weather_screen.dart';
+import 'package:pws/screens/dashboard.dart';
+import 'package:pws/models/navBar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,26 +21,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Builder(
-        builder: (context) => SplashScreen(
-          onFinish: () {
-            Navigator.pushReplacementNamed(context, '/mainPage');
-          },
-        ),
-      ),
+
+      home: FirebaseAuth.instance.currentUser != null
+          ? const Navbar() // Go to bottom nav/dashboard
+          : const HomeScreen(), // Go to login/signup screen
+
       routes: {
-        '/home': (context) => HomeScreen(),
-        '/login': (context) => SignInScreen(),
+        '/home': (context) => const HomeScreen(),
+        '/login': (context) => const SignInScreen(),
         '/signup': (context) => SignUpScreen(
-          navigate: (routename) {
-            Navigator.pushNamed(context, '/dashboard');
-          },
-        ),
-        '/dashboard': (context) => Dashboard(),
-        '/mainPage': (context) => MainPage(),
-        '/settings': (context) => SettingsScreen(),
-        '/reminder': (context) => ReminderScreen(),
-        '/calendar': (context) => CropCalendarScreen(),
+              navigate: (routename) {
+                Navigator.pushNamed(context, '/navbar');
+              },
+            ),
+        '/dashboard': (context) => const Dashboard(),
+        '/navbar': (context) => const Navbar(),
       },
     );
   }

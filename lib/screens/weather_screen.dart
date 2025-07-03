@@ -438,28 +438,40 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           ),
                         ),
                         // Details grid
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
+                        // NEW CODE (no scrolling, equal spacing)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              _detailCard(
-                                '💧',
-                                "${currentWeather!['current']['humidity']}%",
-                                "Humidity",
-                              ),
-                              _detailCard(
-                                '🌬️',
-                                "${currentWeather!['current']['wind_kph'].toStringAsFixed(1)} km/h",
-                                "Wind Speed",
-                                extra: getWindDirectionText(
-                                  currentWeather!['current']['wind_degree'],
+                              Expanded(
+                                child: _buildFixedCard(
+                                  emoji: '💧',
+                                  value:
+                                      "${currentWeather!['current']['humidity']}%",
+                                  label: "Humidity",
                                 ),
                               ),
-                              _detailCard(
-                                '📊',
-                                "${currentWeather!['current']['pressure_mb']} hPa",
-                                "Pressure",
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: _buildFixedCard(
+                                  emoji: '🌬️',
+                                  value:
+                                      "${currentWeather!['current']['wind_kph'].toStringAsFixed(1)} km/h",
+                                  label: "Wind Speed",
+                                  extra: getWindDirectionText(
+                                    currentWeather!['current']['wind_degree'],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: _buildFixedCard(
+                                  emoji: '📊',
+                                  value:
+                                      "${currentWeather!['current']['pressure_mb']} hPa",
+                                  label: "Pressure",
+                                ),
                               ),
                             ],
                           ),
@@ -558,45 +570,50 @@ class _WeatherScreenState extends State<WeatherScreen> {
     }
   }
 
-  Widget _detailCard(
-    String emoji,
-    String value,
-    String label, {
+  Widget _buildFixedCard({
+    required String emoji,
+    required String value,
+    required String label,
     String? extra,
   }) {
     return Container(
-      width: 95,
-      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-      padding: const EdgeInsets.all(15),
+      height: 140,
+      padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 76),
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: Colors.white.withValues(alpha: 76)),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(emoji, style: const TextStyle(fontSize: 28)),
-          const SizedBox(height: 8),
+          Text(emoji, style: TextStyle(fontSize: 28)),
+          SizedBox(height: 10),
           Text(
             value,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
           ),
-          if (extra != null)
+          if (extra != null) ...[
+            SizedBox(height: 4),
             Text(
               extra,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
+              style: TextStyle(fontSize: 13, color: Colors.grey[700]),
+              textAlign: TextAlign.center,
             ),
+          ],
+          SizedBox(height: 6),
           Text(
             label,
-            style: const TextStyle(fontSize: 12, color: Colors.black87),
+            style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+            textAlign: TextAlign.center,
           ),
         ],
       ),
