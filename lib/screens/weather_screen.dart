@@ -11,7 +11,7 @@ class WeatherScreen extends StatefulWidget {
 
 class _WeatherScreenState extends State<WeatherScreen> {
   final String apiKey =
-      '23c58c68d34d415983a85602251106'; // Your WeatherAPI.com key
+      '23c58c68d34d415983a85602251106';
   final List<String> defaultCities = [
     'Gurgaon',
     'Mumbai',
