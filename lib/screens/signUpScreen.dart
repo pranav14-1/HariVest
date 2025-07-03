@@ -52,7 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen>
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text('Sign In Error'),
+        title: const Text('Sign Up Error'),
         content: Text(message),
         actions: [
           TextButton(
@@ -145,7 +145,7 @@ class _SignUpScreenState extends State<SignUpScreen>
               width: 200,
               height: 200,
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 26),
+                color: Colors.white.withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
             ),
@@ -157,7 +157,7 @@ class _SignUpScreenState extends State<SignUpScreen>
               width: 300,
               height: 300,
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 13),
+                color: Colors.white.withOpacity(0.05),
                 shape: BoxShape.circle,
               ),
             ),
@@ -172,17 +172,6 @@ class _SignUpScreenState extends State<SignUpScreen>
                 child: Container(
                   constraints: const BoxConstraints(maxWidth: 400),
                   padding: const EdgeInsets.all(24),
-                  // decoration: BoxDecoration(
-                  //   color: Colors.blue.shade300,
-                  //   borderRadius: BorderRadius.circular(20),
-                  //   boxShadow: [
-                  //     BoxShadow(
-                  //       color: Colors.black.withValues(alpha: 77),
-                  //       offset: const Offset(0, 10),
-                  //       blurRadius: 20,
-                  //     ),
-                  //   ],
-                  // ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -194,7 +183,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                           color: Colors.white,
                           shadows: [
                             Shadow(
-                              color: Colors.black.withValues(alpha: 77),
+                              color: Colors.black.withOpacity(0.3),
                               offset: const Offset(0, 2),
                               blurRadius: 8,
                             ),
@@ -259,7 +248,9 @@ class _SignUpScreenState extends State<SignUpScreen>
                                 borderRadius: BorderRadius.circular(16),
                               ),
                             ),
-                            onPressed: () => _animatePress(_handleSignUp),
+                            onPressed: _isLoading
+                                ? null
+                                : () => _animatePress(_handleSignUp),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
@@ -288,7 +279,9 @@ class _SignUpScreenState extends State<SignUpScreen>
                       ),
                       const SizedBox(height: 10),
                       GestureDetector(
-                        onTap: () => widget.navigate('SignIn'),
+                        onTap: _isLoading
+                            ? null
+                            : () => widget.navigate('SignIn'),
                         child: RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
@@ -312,6 +305,16 @@ class _SignUpScreenState extends State<SignUpScreen>
               ),
             ),
           ),
+          // Loading overlay
+          if (_isLoading)
+            Container(
+              color: Colors.black38,
+              child: const Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              ),
+            ),
         ],
       ),
     );
@@ -335,21 +338,21 @@ class _SignUpScreenState extends State<SignUpScreen>
       cursorColor: const Color(0xFFFBBF24),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(color: Colors.black.withValues(alpha: 179)),
+        hintStyle: TextStyle(color: Colors.black.withOpacity(0.7)),
         filled: true,
-        fillColor: Colors.white.withValues(alpha: 38),
+        fillColor: Colors.white.withOpacity(0.15),
         contentPadding: const EdgeInsets.all(16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(
-            color: Colors.white.withValues(alpha: 102),
+            color: Colors.white.withOpacity(0.4),
             width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(
-            color: Colors.white.withValues(alpha: 102),
+            color: Colors.white.withOpacity(0.4),
             width: 1,
           ),
         ),

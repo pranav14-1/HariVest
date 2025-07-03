@@ -23,7 +23,6 @@ class _SignInScreenState extends State<SignInScreen> {
       return;
     }
 
-    // Show loading indicator (optional)
     setState(() => _isLoading = true);
 
     try {
@@ -33,10 +32,7 @@ class _SignInScreenState extends State<SignInScreen> {
         Navigator.pushReplacementNamed(context, '/navbar');
         return;
       }
-
-      await Future.delayed(
-        const Duration(seconds: 1),
-      ); 
+      await Future.delayed(const Duration(seconds: 1));
     } catch (e) {
       _showAlert('Sign in failed. Please try again.\nError: $e');
     } finally {
@@ -46,10 +42,9 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    super.dispose();
   }
 
   void _showAlert(String message) {
@@ -155,7 +150,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-                          onPressed: _handleSignIn,
+                          onPressed: _isLoading ? null : _handleSignIn,
                           child: const Text(
                             'Sign In',
                             style: TextStyle(fontSize: 18, color: Colors.white),
@@ -165,9 +160,11 @@ class _SignInScreenState extends State<SignInScreen> {
                       const SizedBox(height: 10),
                       // Sign Up link
                       TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/signup');
-                        },
+                        onPressed: _isLoading
+                            ? null
+                            : () {
+                                Navigator.pushNamed(context, '/signup');
+                              },
                         child: const Text(
                           "Don't have an account? Sign Up",
                           style: TextStyle(color: Colors.white),
@@ -179,6 +176,16 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
             ),
           ),
+          // Loading overlay
+          if (_isLoading)
+            Container(
+              color: Colors.black38,
+              child: const Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              ),
+            ),
         ],
       ),
     );
