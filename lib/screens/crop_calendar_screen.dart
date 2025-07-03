@@ -144,7 +144,10 @@ class _CropCalendarScreenState extends State<CropCalendarScreen> {
             Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFF29CA9F), Color(0xFFFBE2BA)],
+                  colors: [
+                    Color(0xFF2196F3),
+                    Color.fromARGB(255, 173, 217, 253),
+                  ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   stops: [0, 0.6],
@@ -164,7 +167,7 @@ class _CropCalendarScreenState extends State<CropCalendarScreen> {
                       horizontal: 15,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xCC227263),
+                      color: Colors.blue.shade300,
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(color: Colors.white.withOpacity(0.4)),
                       boxShadow: [
@@ -178,7 +181,7 @@ class _CropCalendarScreenState extends State<CropCalendarScreen> {
                     child: Column(
                       children: const [
                         Text(
-                          '🌾 Crop Calendar',
+                          'Crop Calendar',
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -214,12 +217,12 @@ class _CropCalendarScreenState extends State<CropCalendarScreen> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF1A3C34),
+                          color: Colors.white,
                           shadows: [
                             Shadow(
-                              color: Colors.white.withOpacity(0.5),
-                              offset: const Offset(1, 1),
-                              blurRadius: 1,
+                              color: Colors.black.withOpacity(0.5),
+                              // offset: const Offset(1, 1),
+                              // blurRadius: 1,
                             ),
                           ],
                         ),
@@ -238,13 +241,13 @@ class _CropCalendarScreenState extends State<CropCalendarScreen> {
                       padding: EdgeInsets.only(top: height * 0.1),
                       child: Column(
                         children: const [
-                          CircularProgressIndicator(color: Color(0xFF4CAF50)),
+                          CircularProgressIndicator(color: Colors.white),
                           SizedBox(height: 15),
                           Text(
                             'Loading crop data...',
                             style: TextStyle(
                               fontSize: 18,
-                              color: Color(0xFF1A3C34),
+                              color: Colors.black,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -273,7 +276,7 @@ class _CropCalendarScreenState extends State<CropCalendarScreen> {
                         error!,
                         style: const TextStyle(
                           fontSize: 16,
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
                         textAlign: TextAlign.center,
@@ -287,10 +290,10 @@ class _CropCalendarScreenState extends State<CropCalendarScreen> {
                           margin: const EdgeInsets.only(bottom: 15),
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.15),
+                            color: Colors.white.withOpacity(0.25),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: Colors.white.withOpacity(0.3),
+                              color: Colors.white.withOpacity(0.13),
                             ),
                             boxShadow: [
                               BoxShadow(
@@ -315,13 +318,13 @@ class _CropCalendarScreenState extends State<CropCalendarScreen> {
                                       crop['name'] ?? '',
                                       style: const TextStyle(
                                         fontSize: 22,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xFF1A3C34),
+                                        // fontWeight: FontWeight.bold,
+                                        color: Colors.white,
                                         shadows: [
                                           Shadow(
-                                            color: Colors.white,
-                                            offset: Offset(1, 1),
-                                            blurRadius: 1,
+                                            color: Colors.black,
+                                            // offset: Offset(1, 1),
+                                            // blurRadius: 1,
                                           ),
                                         ],
                                       ),
@@ -346,10 +349,10 @@ class _CropCalendarScreenState extends State<CropCalendarScreen> {
                       margin: const EdgeInsets.only(top: 30),
                       padding: const EdgeInsets.all(25),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.15),
+                        color: Colors.black.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(15),
                         border: Border.all(
-                          color: Colors.white.withOpacity(0.3),
+                          color: Colors.black.withOpacity(0.3),
                         ),
                         boxShadow: [
                           BoxShadow(
@@ -366,17 +369,14 @@ class _CropCalendarScreenState extends State<CropCalendarScreen> {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF1A3C34),
+                              color: Colors.white,
                             ),
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(height: 10),
                           Text(
                             'Select another state or contact support for more information.',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Color(0xFF333333),
-                            ),
+                            style: TextStyle(fontSize: 14, color: Colors.black),
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -403,7 +403,7 @@ class _CropCalendarScreenState extends State<CropCalendarScreen> {
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: Color(0xCC212121), // black87 with 80% opacity
+                color: Colors.white, // black87 with 80% opacity
               ),
             ),
           ),
@@ -413,7 +413,7 @@ class _CropCalendarScreenState extends State<CropCalendarScreen> {
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1A3C34),
+                color: Colors.white,
               ),
               textAlign: TextAlign.right,
             ),
@@ -447,7 +447,10 @@ class CustomDropdown extends StatelessWidget {
               value: s,
               child: Text(
                 s,
-                style: const TextStyle(fontWeight: FontWeight.w500),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
               ),
             ),
           )
@@ -468,9 +471,9 @@ class CustomDropdown extends StatelessWidget {
           vertical: 15,
         ),
       ),
-      icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF1A3C34)),
+      icon: const Icon(Icons.arrow_drop_down, color: Colors.black),
       dropdownColor: Colors.white,
-      style: const TextStyle(fontSize: 16, color: Color(0xFF1A3C34)),
+      style: const TextStyle(fontSize: 16, color: Colors.black),
     );
   }
 }

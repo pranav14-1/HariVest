@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pws/screens/home_page.dart';
 import 'package:pws/screens/signInScreen.dart';
+import 'package:pws/screens/crop_calendar_screen.dart';
+import 'package:pws/screens/dashboard.dart';
+import 'package:pws/screens/reminder_screen.dart';
+import 'package:pws/screens/settings_screen.dart';
 import 'package:pws/screens/signUpScreen.dart';
 
 void main() {
