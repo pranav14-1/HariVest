@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pws/screens/dashboard.dart';
+import 'package:pws/screens/settings_screen.dart';
 import 'package:pws/screens/signUpScreen.dart';
 import 'package:pws/screens/splash_screen.dart';
 
@@ -12,6 +13,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: SplashScreen());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SettingsScreen(),
+    );
   }
 }
