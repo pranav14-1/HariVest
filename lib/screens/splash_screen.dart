@@ -10,7 +10,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
   late AnimationController _logoController;
   late AnimationController _textController;
   late Animation<double> _logoAnim;
@@ -29,7 +30,10 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       vsync: this,
     );
 
-    _logoAnim = CurvedAnimation(parent: _logoController, curve: Curves.bounceOut);
+    _logoAnim = CurvedAnimation(
+      parent: _logoController,
+      curve: Curves.bounceOut,
+    );
     _textAnim = CurvedAnimation(parent: _textController, curve: Curves.easeIn);
 
     _logoController.forward();
@@ -66,7 +70,11 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF2DD4BF), Color(0xFF059669), Color(0xFF065F46)],
+                colors: [
+                  Color(0xFF2196F3), // Blue
+                  Color(0xFF90CAF9), // Light Blue
+                  Color(0xFFFFFFFF), // White
+                ],
                 stops: [0, 0.6, 1],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -115,13 +123,13 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                         borderRadius: BorderRadius.circular(70),
                         border: Border.all(color: Colors.white, width: 4),
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(70),
-                        child: Image.asset(
-                          'assets/farm-logo.png', // Make sure this asset exists and is in pubspec.yaml
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      // child: ClipRRect(
+                      //   borderRadius: BorderRadius.circular(70),
+                      //   child: Image.asset(
+                      //     'assets/farm-logo.png', // Make sure this asset exists and is in pubspec.yaml
+                      //     fit: BoxFit.cover,
+                      //   ),
+                      // ),
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -158,9 +166,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                     ),
                   ),
                   const SizedBox(height: 40),
-                  const CircularProgressIndicator(
-                    color: Colors.white,
-                  ),
+                  const CircularProgressIndicator(color: Colors.white),
                 ],
               ),
             ),
