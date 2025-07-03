@@ -10,8 +10,7 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
-  final String apiKey =
-      '23c58c68d34d415983a85602251106';
+  final String apiKey = '23c58c68d34d415983a85602251106';
   final List<String> defaultCities = [
     'Gurgaon',
     'Mumbai',
@@ -124,7 +123,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SafeArea(
@@ -185,7 +183,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 padding: const EdgeInsets.all(10.0),
                                 child: TextField(
                                   style: const TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontSize: 16,
                                   ),
                                   decoration: InputDecoration(
@@ -271,7 +269,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               return Padding(
                                 padding: const EdgeInsets.only(right: 10),
                                 child: InkWell(
-                                  onTap: () => setState(() => city = c),
+                                  onTap: () {
+                                    setState(() => city = c);
+                                    fetchWeatherData(c);
+                                  },
                                   borderRadius: BorderRadius.circular(20),
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
@@ -437,28 +438,31 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           ),
                         ),
                         // Details grid
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            _detailCard(
-                              '💧',
-                              "${currentWeather!['current']['humidity']}%",
-                              "Humidity",
-                            ),
-                            _detailCard(
-                              '🌬️',
-                              "${currentWeather!['current']['wind_kph'].toStringAsFixed(1)} km/h",
-                              "Wind Speed",
-                              extra: getWindDirectionText(
-                                currentWeather!['current']['wind_degree'],
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              _detailCard(
+                                '💧',
+                                "${currentWeather!['current']['humidity']}%",
+                                "Humidity",
                               ),
-                            ),
-                            _detailCard(
-                              '📊',
-                              "${currentWeather!['current']['pressure_mb']} hPa",
-                              "Pressure",
-                            ),
-                          ],
+                              _detailCard(
+                                '🌬️',
+                                "${currentWeather!['current']['wind_kph'].toStringAsFixed(1)} km/h",
+                                "Wind Speed",
+                                extra: getWindDirectionText(
+                                  currentWeather!['current']['wind_degree'],
+                                ),
+                              ),
+                              _detailCard(
+                                '📊',
+                                "${currentWeather!['current']['pressure_mb']} hPa",
+                                "Pressure",
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -478,7 +482,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         ),
                         const SizedBox(height: 10),
                         SizedBox(
-                          height: 170,
+                          height: 180,
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: forecast.map((day) {
@@ -561,7 +565,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
     String? extra,
   }) {
     return Container(
-      width: 100,
+      width: 95,
       margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
