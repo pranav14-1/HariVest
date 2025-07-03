@@ -128,7 +128,7 @@ class SettingsScreen extends StatelessWidget {
                             icon: "🔑",
                             iconColor: const Color(0xFFF59E0B),
                             label: "Change Password",
-                            onTap: () => _navigateTo(context, "ChangePassword"),
+                            onTap: () => Navigator.pushNamed(context, "/changePassword"),
                           ),
                         ]),
                         // General Section

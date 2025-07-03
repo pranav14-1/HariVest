@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:pws/models/changePassword.dart';
 import 'package:pws/screens/home_page.dart';
 import 'package:pws/screens/signInScreen.dart';
 import 'package:pws/screens/signUpScreen.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         ),
         '/dashboard': (context) => const Dashboard(),
         '/navbar': (context) => const Navbar(),
+        '/changePassword' : (context) => const ChangePasswordScreen(),
       },
     );
   }
