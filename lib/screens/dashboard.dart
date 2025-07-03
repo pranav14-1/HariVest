@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:pws/models/camera.dart';
 import 'package:pws/models/chat_bot.dart';
 
 final List<Map<String, dynamic>> mockMarketPrices = [
@@ -493,60 +494,78 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                               ),
                             ),
                             const SizedBox(height: 15),
-                            SizedBox(
-                              height: 220,
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                ),
-                                children: [
-                                  _buildParameterCard(
-                                    '💧',
-                                    'Soil Moisture',
-                                    'Percentage (%)',
-                                    moisture,
-                                    (v) => setState(() => moisture = v),
-                                    getParameterStatus(moisture, 'moisture'),
-                                  ),
-                                  const SizedBox(width: 15),
-                                  _buildParameterCard(
-                                    '🌡️',
-                                    'Soil Temperature',
-                                    'Celsius (°C)',
-                                    temperature,
-                                    (v) => setState(() => temperature = v),
-                                    getParameterStatus(
-                                      temperature,
-                                      'temperature',
+
+                            // 2x2 Grid Layout using Column + Row
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: _buildParameterCard(
+                                        '💧',
+                                        'Soil Moisture',
+                                        'Percentage (%)',
+                                        moisture,
+                                        (v) => setState(() => moisture = v),
+                                        getParameterStatus(
+                                          moisture,
+                                          'moisture',
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 15),
-                                  _buildParameterCard(
-                                    '⚗️',
-                                    'pH Level',
-                                    'Acidity (0-14)',
-                                    ph,
-                                    (v) => setState(() => ph = v),
-                                    getParameterStatus(ph, 'ph'),
-                                  ),
-                                  const SizedBox(width: 15),
-                                  _buildParameterCard(
-                                    '🧪',
-                                    'Nitrogen Level',
-                                    'PPM (mg/kg)',
-                                    nitrogen,
-                                    (v) => setState(() => nitrogen = v),
-                                    getParameterStatus(nitrogen, 'nitrogen'),
-                                  ),
-                                ],
-                              ),
+                                    const SizedBox(width: 15),
+                                    Expanded(
+                                      child: _buildParameterCard(
+                                        '🌡️',
+                                        'Soil Temperature',
+                                        'Celsius (°C)',
+                                        temperature,
+                                        (v) => setState(() => temperature = v),
+                                        getParameterStatus(
+                                          temperature,
+                                          'temperature',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 15),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: _buildParameterCard(
+                                        '⚗️',
+                                        'pH Level',
+                                        'Acidity (0–14)',
+                                        ph,
+                                        (v) => setState(() => ph = v),
+                                        getParameterStatus(ph, 'ph'),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 15),
+                                    Expanded(
+                                      child: _buildParameterCard(
+                                        '🧪',
+                                        'Nitrogen Level',
+                                        'PPM (mg/kg)',
+                                        nitrogen,
+                                        (v) => setState(() => nitrogen = v),
+                                        getParameterStatus(
+                                          nitrogen,
+                                          'nitrogen',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ],
                         ),
                       ),
                     ),
                   ),
+
                   // Get Recommendations Button
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20),
@@ -651,31 +670,35 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                             color: Colors.blue.shade600,
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          child: const Column(
-                            children: [
-                              Icon(
-                                Icons.science,
-                                color: Colors.white,
-                                size: 40,
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                'AI Analysis',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                          child: InkWell(
+                            onTap: openCamera,
+                            borderRadius: BorderRadius.circular(16),
+                            child: const Column(
+                              children: [
+                                Icon(
+                                  Icons.science,
                                   color: Colors.white,
+                                  size: 40,
                                 ),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                'Advanced crop disease detection',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.white,
+                                SizedBox(height: 8),
+                                Text(
+                                  'AI Analysis',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                SizedBox(height: 4),
+                                Text(
+                                  'Advanced crop disease detection',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
