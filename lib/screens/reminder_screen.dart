@@ -27,129 +27,129 @@ final List<Scheme> mockSchemes = [
   Scheme(
     id: 'scheme1',
     name: 'Pradhan Mantri Fasal Bima Yojana (PMFBY)',
-    description: 'A scheme to provide insurance coverage and financial support to farmers in the event of failure of any of the notified crops as a result of natural calamities, pests & diseases.',
+    description:
+        'A scheme to provide insurance coverage and financial support to farmers in the event of failure of any of the notified crops as a result of natural calamities, pests & diseases.',
     launchDate: 'February 2016',
     status: 'previous',
     link: 'https://pmfby.gov.in/',
     benefits: [
       'Financial support to farmers',
       'Risk coverage against crop failure',
-      'Promotes adoption of modern agricultural practices'
+      'Promotes adoption of modern agricultural practices',
     ],
     eligibility: [
-      'All farmers including sharecroppers and tenant farmers growing the notified crops in the notified areas.'
+      'All farmers including sharecroppers and tenant farmers growing the notified crops in the notified areas.',
     ],
   ),
   Scheme(
     id: 'scheme2',
     name: 'Kisan Credit Card (KCC) Scheme',
-    description: 'A scheme to provide adequate and timely credit support to farmers for their cultivation needs, purchase of agricultural inputs, and post-harvest expenses.',
+    description:
+        'A scheme to provide adequate and timely credit support to farmers for their cultivation needs, purchase of agricultural inputs, and post-harvest expenses.',
     launchDate: 'August 1998',
     status: 'previous',
     link: 'https://pmkisan.gov.in/KccApplication.aspx',
     benefits: [
       'Flexible and simplified procedure for credit',
       'Disbursement of crop loans',
-      'Covers post-harvest expenses and allied activities'
+      'Covers post-harvest expenses and allied activities',
     ],
     eligibility: [
-      'Farmers (individual/joint borrowers) who are engaged in agriculture and allied activities.'
+      'Farmers (individual/joint borrowers) who are engaged in agriculture and allied activities.',
     ],
   ),
   Scheme(
     id: 'scheme3',
     name: 'Soil Health Card Scheme',
-    description: 'A program launched to help farmers improve productivity through judicious use of fertilizers by providing soil nutrient status to farmers.',
+    description:
+        'A program launched to help farmers improve productivity through judicious use of fertilizers by providing soil nutrient status to farmers.',
     launchDate: 'February 2015',
     status: 'previous',
     link: 'https://www.soilhealth.dac.gov.in/',
     benefits: [
       'Analyzes soil health',
       'Provides recommendations on nutrient management',
-      'Reduces fertilizer misuse'
+      'Reduces fertilizer misuse',
     ],
-    eligibility: [
-      'All farmers can get a Soil Health Card.'
-    ],
+    eligibility: ['All farmers can get a Soil Health Card.'],
   ),
   Scheme(
     id: 'scheme4',
     name: 'National Agriculture Market (e-NAM)',
-    description: 'An online trading platform for agricultural commodities in India. The platform facilitates farmers, traders, and buyers with online trading in commodities.',
+    description:
+        'An online trading platform for agricultural commodities in India. The platform facilitates farmers, traders, and buyers with online trading in commodities.',
     launchDate: 'April 2016',
     status: 'previous',
     link: 'https://www.enam.gov.in/',
     benefits: [
       'Better price discovery for farmers',
       'Transparency in transactions',
-      'Access to a wider market'
+      'Access to a wider market',
     ],
-    eligibility: [
-      'Farmers who are members of APMCs connected to e-NAM.'
-    ],
+    eligibility: ['Farmers who are members of APMCs connected to e-NAM.'],
   ),
   // Upcoming/Newly Launched Schemes
   Scheme(
     id: 'scheme5',
     name: 'PM-KISAN Samman Nidhi (Latest Installment)',
-    description: 'Direct income support to all landholding farmer families in India. Details on the next installment release and new registration drives.',
+    description:
+        'Direct income support to all landholding farmer families in India. Details on the next installment release and new registration drives.',
     launchDate: 'Expected Q3 2024',
     status: 'upcoming',
     link: 'https://pmkisan.gov.in/',
     benefits: [
       'Direct income support for farmers',
-      'Financial assistance for agricultural needs'
+      'Financial assistance for agricultural needs',
     ],
     eligibility: [
-      'All landholding farmer families, subject to certain exclusion criteria.'
+      'All landholding farmer families, subject to certain exclusion criteria.',
     ],
   ),
   Scheme(
     id: 'scheme6',
     name: 'New Drone Technology Adoption Program',
-    description: 'A proposed scheme to subsidize the purchase and use of agricultural drones for precision farming, spraying, and monitoring.',
+    description:
+        'A proposed scheme to subsidize the purchase and use of agricultural drones for precision farming, spraying, and monitoring.',
     launchDate: 'Expected Early 2025',
     status: 'upcoming',
     benefits: [
       'Promotes precision agriculture',
       'Reduces labor costs',
-      'Efficient application of inputs'
+      'Efficient application of inputs',
     ],
     eligibility: [
-      'Farmer producer organizations (FPOs), individual farmers with certain land holdings.'
+      'Farmer producer organizations (FPOs), individual farmers with certain land holdings.',
     ],
   ),
   Scheme(
     id: 'scheme7',
     name: 'Climate-Resilient Agriculture Initiative',
-    description: 'A newly launched initiative focusing on sustainable farming practices, water conservation, and development of climate-resistant crop varieties.',
+    description:
+        'A newly launched initiative focusing on sustainable farming practices, water conservation, and development of climate-resistant crop varieties.',
     launchDate: 'June 2024',
     status: 'newly-launched',
     link: 'https://example.gov.in/climate-resilience',
     benefits: [
       'Sustainable farming',
       'Improved water efficiency',
-      'New crop varieties for extreme weather'
+      'New crop varieties for extreme weather',
     ],
-    eligibility: [
-      'Farmers in identified climate-vulnerable regions.'
-    ],
+    eligibility: ['Farmers in identified climate-vulnerable regions.'],
   ),
   Scheme(
     id: 'scheme8',
     name: 'Agri-Tech Startup Incubation Grant',
-    description: 'A new grant program to support agricultural technology startups focusing on innovative solutions for small and marginal farmers.',
+    description:
+        'A new grant program to support agricultural technology startups focusing on innovative solutions for small and marginal farmers.',
     launchDate: 'May 2024',
     status: 'newly-launched',
     link: 'https://example.gov.in/agri-tech-grants',
     benefits: [
       'Funding for innovation',
       'Job creation in rural areas',
-      'Development of farmer-centric tech'
+      'Development of farmer-centric tech',
     ],
-    eligibility: [
-      'Registered Agri-Tech startups with a valid business plan.'
-    ],
+    eligibility: ['Registered Agri-Tech startups with a valid business plan.'],
   ),
 ];
 // --- END MOCK DATA FOR FARMER SCHEMES ---
@@ -181,9 +181,15 @@ class _ReminderScreenState extends State<ReminderScreen> {
     Future.delayed(const Duration(milliseconds: 700), () {
       List<Scheme> filteredSchemes;
       if (selectedSchemeCategory == 'previous') {
-        filteredSchemes = mockSchemes.where((s) => s.status == 'previous').toList();
+        filteredSchemes = mockSchemes
+            .where((s) => s.status == 'previous')
+            .toList();
       } else {
-        filteredSchemes = mockSchemes.where((s) => s.status == 'upcoming' || s.status == 'newly-launched').toList();
+        filteredSchemes = mockSchemes
+            .where(
+              (s) => s.status == 'upcoming' || s.status == 'newly-launched',
+            )
+            .toList();
       }
       setState(() {
         if (filteredSchemes.isNotEmpty) {
@@ -191,7 +197,8 @@ class _ReminderScreenState extends State<ReminderScreen> {
           schemeError = null;
         } else {
           schemes = [];
-          schemeError = 'No ${selectedSchemeCategory == 'upcoming' ? 'upcoming or newly launched' : 'previous'} schemes found at this time.';
+          schemeError =
+              'No ${selectedSchemeCategory == 'upcoming' ? 'upcoming or newly launched' : 'previous'} schemes found at this time.';
         }
         schemeLoading = false;
       });
@@ -209,7 +216,10 @@ class _ReminderScreenState extends State<ReminderScreen> {
             Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFF29ca9f), Color(0xFFFBE2BA)],
+                  colors: [
+                    Color(0xFF2196F3),
+                    Color.fromARGB(255, 173, 217, 253),
+                  ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   stops: [0, 0.6],
@@ -226,7 +236,7 @@ class _ReminderScreenState extends State<ReminderScreen> {
                     margin: const EdgeInsets.only(top: 20, bottom: 25),
                     padding: const EdgeInsets.symmetric(vertical: 15),
                     decoration: BoxDecoration(
-                      color: const Color(0x99367263),
+                      color: Colors.blue.shade300,
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(color: Colors.white.withOpacity(0.4)),
                       boxShadow: [
@@ -296,7 +306,9 @@ class _ReminderScreenState extends State<ReminderScreen> {
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               decoration: BoxDecoration(
-                                color: selectedSchemeCategory == 'upcoming' ? const Color(0xFF4CAF50) : Colors.transparent,
+                                color: selectedSchemeCategory == 'upcoming'
+                                    ? Colors.blue.shade700
+                                    : Colors.transparent,
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: selectedSchemeCategory == 'upcoming'
                                     ? [
@@ -314,7 +326,9 @@ class _ReminderScreenState extends State<ReminderScreen> {
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
-                                  color: selectedSchemeCategory == 'upcoming' ? Colors.white : const Color(0xFF1A3C34),
+                                  color: selectedSchemeCategory == 'upcoming'
+                                      ? Colors.white
+                                      : const Color(0xFF1A3C34),
                                 ),
                               ),
                             ),
@@ -334,7 +348,9 @@ class _ReminderScreenState extends State<ReminderScreen> {
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               decoration: BoxDecoration(
-                                color: selectedSchemeCategory == 'previous' ? const Color(0xFF4CAF50) : Colors.transparent,
+                                color: selectedSchemeCategory == 'previous'
+                                    ? Colors.blue.shade700
+                                    : Colors.transparent,
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: selectedSchemeCategory == 'previous'
                                     ? [
@@ -352,7 +368,9 @@ class _ReminderScreenState extends State<ReminderScreen> {
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
-                                  color: selectedSchemeCategory == 'previous' ? Colors.white : const Color(0xFF1A3C34),
+                                  color: selectedSchemeCategory == 'previous'
+                                      ? Colors.white
+                                      : const Color(0xFF1A3C34),
                                 ),
                               ),
                             ),
@@ -367,11 +385,15 @@ class _ReminderScreenState extends State<ReminderScreen> {
                       padding: EdgeInsets.only(top: height * 0.1),
                       child: Column(
                         children: const [
-                          CircularProgressIndicator(color: Color(0xFF4CAF50)),
+                          CircularProgressIndicator(color: Colors.white),
                           SizedBox(height: 10),
                           Text(
                             'Loading schemes...',
-                            style: TextStyle(fontSize: 18, color: Color(0xFF1A3C34), fontWeight: FontWeight.w500),
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Color(0xFF1A3C34),
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ],
                       ),
@@ -393,13 +415,21 @@ class _ReminderScreenState extends State<ReminderScreen> {
                       ),
                       child: Text(
                         schemeError!,
-                        style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),
-                  if (!schemeLoading && schemeError == null && schemes.isNotEmpty)
+                  if (!schemeLoading &&
+                      schemeError == null &&
+                      schemes.isNotEmpty)
                     Column(
-                      children: schemes.map((scheme) => _buildSchemeCard(scheme)).toList(),
+                      children: schemes
+                          .map((scheme) => _buildSchemeCard(scheme))
+                          .toList(),
                     ),
                   if (!schemeLoading && schemeError == null && schemes.isEmpty)
                     Container(
@@ -408,7 +438,9 @@ class _ReminderScreenState extends State<ReminderScreen> {
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: Colors.white.withOpacity(0.3)),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.3),
+                        ),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.2),
@@ -421,19 +453,26 @@ class _ReminderScreenState extends State<ReminderScreen> {
                         children: [
                           Text(
                             'No ${selectedSchemeCategory == 'upcoming' ? 'upcoming or newly launched' : 'previous'} schemes available at the moment.',
-                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF1A3C34)),
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 10),
                           const Text(
                             'Please check back later for updates.',
-                            style: TextStyle(fontSize: 14, color: Color(0xFF333333)),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Color(0xFF333333),
+                            ),
                             textAlign: TextAlign.center,
                           ),
                         ],
                       ),
                     ),
-                  const SizedBox(height: 50)
+                  const SizedBox(height: 50),
                 ],
               ),
             ),
@@ -450,7 +489,7 @@ class _ReminderScreenState extends State<ReminderScreen> {
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.95),
         borderRadius: BorderRadius.circular(15),
-        border: Border(left: BorderSide(color: const Color(0xFF4CAF50), width: 5)),
+        border: Border(left: BorderSide(color: Colors.blue, width: 5)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.15),
@@ -462,34 +501,67 @@ class _ReminderScreenState extends State<ReminderScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(scheme.name, style: const TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Color(0xFF1A3C34))),
+          Text(
+            scheme.name,
+            style: const TextStyle(
+              fontSize: 19,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
           const SizedBox(height: 6),
-          Text(scheme.description, style: const TextStyle(fontSize: 14, color: Color(0xFF333333))),
+          Text(
+            scheme.description,
+            style: const TextStyle(fontSize: 14, color: Color(0xFF333333)),
+          ),
           const SizedBox(height: 8),
           Row(
             children: [
-              const Icon(Icons.calendar_today, size: 16, color: Color(0xFF4CAF50)),
+              const Icon(Icons.calendar_today, size: 16, color: Colors.blue),
               const SizedBox(width: 6),
-              Text('Launched: ${scheme.launchDate}', style: const TextStyle(fontSize: 13, color: Color(0xFF388E3C))),
+              Text(
+                'Launched: ${scheme.launchDate}',
+                style: const TextStyle(fontSize: 13, color: Colors.black),
+              ),
               if (scheme.status == 'newly-launched')
                 Container(
                   margin: const EdgeInsets.only(left: 10),
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.orangeAccent,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Text('New', style: TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.bold)),
+                  child: const Text(
+                    'New',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               if (scheme.status == 'upcoming')
                 Container(
                   margin: const EdgeInsets.only(left: 10),
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.blueAccent,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Text('Upcoming', style: TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.bold)),
+                  child: const Text(
+                    'Upcoming',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -502,7 +574,11 @@ class _ReminderScreenState extends State<ReminderScreen> {
                 },
                 child: Text(
                   scheme.link!,
-                  style: const TextStyle(fontSize: 13, color: Colors.blue, decoration: TextDecoration.underline),
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: Colors.blue,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
             ),
@@ -511,13 +587,23 @@ class _ReminderScreenState extends State<ReminderScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Benefits:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                ...scheme.benefits.map((b) => Row(
-                  children: [
-                    const Text('• ', style: TextStyle(color: Color(0xFF4CAF50))),
-                    Expanded(child: Text(b, style: const TextStyle(fontSize: 13))),
-                  ],
-                )),
+                const Text(
+                  'Benefits:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                ),
+                ...scheme.benefits.map(
+                  (b) => Row(
+                    children: [
+                      const Text(
+                        '• ',
+                        style: TextStyle(color: Color(0xFF4CAF50)),
+                      ),
+                      Expanded(
+                        child: Text(b, style: const TextStyle(fontSize: 13)),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           const SizedBox(height: 8),
@@ -525,13 +611,23 @@ class _ReminderScreenState extends State<ReminderScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Eligibility:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                ...scheme.eligibility.map((e) => Row(
-                  children: [
-                    const Text('• ', style: TextStyle(color: Color(0xFF4CAF50))),
-                    Expanded(child: Text(e, style: const TextStyle(fontSize: 13))),
-                  ],
-                )),
+                const Text(
+                  'Eligibility:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                ),
+                ...scheme.eligibility.map(
+                  (e) => Row(
+                    children: [
+                      const Text(
+                        '• ',
+                        style: TextStyle(color: Color(0xFF4CAF50)),
+                      ),
+                      Expanded(
+                        child: Text(e, style: const TextStyle(fontSize: 13)),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
         ],
