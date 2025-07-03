@@ -168,14 +168,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     width: 4,
                                   ),
                                 ),
-                                //will add asset later
-
-                                // child: ClipOval(
-                                //   child: Image.asset(
-                                //     'assets/farm-logo.png',
-                                //     fit: BoxFit.contain,
-                                //   ),
-                                // ),
+                                child: ClipOval(
+                                  child: Image.asset(
+                                    'assets/farm-logo.png',
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
                               ),
                             ],
                           ),

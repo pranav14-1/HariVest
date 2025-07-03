@@ -123,13 +123,13 @@ class _SplashScreenState extends State<SplashScreen>
                         borderRadius: BorderRadius.circular(70),
                         border: Border.all(color: Colors.white, width: 4),
                       ),
-                      // child: ClipRRect(
-                      //   borderRadius: BorderRadius.circular(70),
-                      //   child: Image.asset(
-                      //     'assets/farm-logo.png', // Make sure this asset exists and is in pubspec.yaml
-                      //     fit: BoxFit.cover,
-                      //   ),
-                      // ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(70),
+                        child: Image.asset(
+                          'assets/farm-logo.png', // Make sure this asset exists and is in pubspec.yaml
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 30),
