@@ -68,6 +68,7 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
 
   late AnimationController _recordingAnimController;
   late Animation<double> _recordingAnim;
+  bool _isRecording = false;
 
   @override
   void initState() {
