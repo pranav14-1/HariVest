@@ -23,37 +23,75 @@ class _NavbarState extends State<Navbar> {
     ReminderScreen(key: ValueKey('Reminder')),
   ];
 
+  int _previousIndex = 3;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // 3D-Like Animated Transition
         body: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 600),
-          switchInCurve: Curves.easeOutBack,
-          switchOutCurve: Curves.easeInBack,
+          duration: const Duration(milliseconds: 900),
+          switchInCurve: Curves.easeOutExpo,
+          switchOutCurve: Curves.easeInExpo,
+          layoutBuilder: (currentChild, previousChildren) {
+            return Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                ...previousChildren,
+                if (currentChild != null) currentChild,
+              ],
+            );
+          },
           transitionBuilder: (child, animation) {
-            final rotate = Tween(begin: 0.8, end: 1.0).animate(animation);
-            final scale = Tween(begin: 0.9, end: 1.0).animate(animation);
+            final isForward = selectedIndex >= _previousIndex;
+            final rotateAnim = Tween<double>(
+              begin: isForward ? 1.0 : -1.0,
+              end: 0.0,
+            ).animate(animation);
+
+            final scaleAnim = Tween<double>(
+              begin: 0.85,
+              end: 1.0,
+            ).animate(animation);
+
             return AnimatedBuilder(
               animation: animation,
               child: child,
               builder: (context, child) {
+                final angleY = rotateAnim.value * 1.2; // ~70 degrees
+                final angleX = rotateAnim.value * 0.3; // ~17 degrees
+                final scale = scaleAnim.value;
+                final shadow = BoxShadow(
+                  color: Colors.black.withOpacity(0.18 * (1 - animation.value)),
+                  blurRadius: 30 * (1 - animation.value),
+                  spreadRadius: 8 * (1 - animation.value),
+                  offset: Offset(0, 12 * (1 - animation.value)),
+                );
                 return Transform(
                   alignment: Alignment.center,
                   transform: Matrix4.identity()
-                    ..setEntry(3, 2, 0.001) // perspective
-                    ..rotateX((1 - rotate.value) * 0.4)
-                    ..scale(scale.value),
-                  child: Opacity(opacity: animation.value.clamp(0.0, 1.0), child: child),
+                    ..setEntry(3, 2, 0.0015)
+                    ..rotateY(angleY)
+                    ..rotateX(angleX)
+                    ..scale(scale),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [shadow],
+                    ),
+                    child: Opacity(
+                      opacity: animation.value.clamp(0.0, 1.0),
+                      child: child,
+                    ),
+                  ),
                 );
               },
             );
           },
-          child: pages[selectedIndex],
+          child: KeyedSubtree(
+            key: ValueKey(selectedIndex),
+            child: pages[selectedIndex],
+          ),
         ),
-
-        // 3D-Styled BottomNavigationBar
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             gradient: const LinearGradient(
@@ -87,8 +125,9 @@ class _NavbarState extends State<Navbar> {
               selectedItemColor: Colors.blueAccent,
               unselectedItemColor: Colors.grey,
               onTap: (index) async {
-                await Future.delayed(const Duration(milliseconds: 200));
+                if (index == selectedIndex) return;
                 setState(() {
+                  _previousIndex = selectedIndex;
                   selectedIndex = index;
                 });
               },
