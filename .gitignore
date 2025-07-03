@@ -1,0 +1,168 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+*.tmp
+*.temp
+
+# Crashlytics/Firebase
+crashlytics-build.properties
+firebase_app_id_file.json
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code
+.vscode/
+.vscode-test/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-versions
+.packages
+.pub-cache/
+.pub/
+build/
+# Sometimes build/ is at root, sometimes in subdirectories
+**/build/
+generated_plugin_registrant.dart
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Android
+.gradle/
+local.properties
+*.keystore
+*.jks
+*.p12
+.cxx/
+.externalNativeBuild/
+captures/
+output.json
+*.apk
+*.ap_
+*.aab
+
+# iOS
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/app.flx
+ios/Flutter/app.zip
+ios/Flutter/flutter_assets/
+ios/ServiceDefinitions.json
+ios/Pods/
+ios/Runner.xcworkspace/
+ios/Runner.xcuserstate
+ios/Runner.xcuserdatad/
+ios/Podfile.lock
+ios/Podfile.symlinks/
+ios/Flutter/ephemeral/
+ios/.symlinks/
+/ios/.dart_tool/
+xcuserdata/
+DerivedData/
+*.xcuserstate
+*.xcworkspace
+*.xcsettings
+
+# macOS
+macos/Flutter/ephemeral/
+macos/Pods/
+macos/Podfile.lock
+macos/Podfile.symlinks/
+macos/.symlinks/
+macos/.dart_tool/
+*.xcuserstate
+*.xcworkspace
+*.xcsettings
+
+# Linux
+linux/flutter/ephemeral/
+linux/.dart_tool/
+linux/build/
+
+# Windows
+windows/flutter/ephemeral/
+windows/.dart_tool/
+windows/build/
+
+# Web
+web/.dart_tool/
+web/build/
+web/generated_plugin_registrant.dart
+
+# Coverage
+coverage/
+lcov.info
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# IDEs and editors
+*.sw?
+*.swo
+*.swn
+*.bak
+*.tmp
+*.orig
+*.rej
+
+# Packages
+.packages
+pubspec.lock
+
+# Others
+*.orig
+*.rej
+*.bak
+*.tmp
+*.temp
+*.old
+*.swp
+*.swo
+*.swn
+
+# Firebase
+firebase-debug.log
+
+# Sentry
+.sentryclirc
+
+# Flutterfire
+flutterfire_config.dart
+
+# Fuchsia
+.fuchsia/
+
+# Misc
+*.pid
