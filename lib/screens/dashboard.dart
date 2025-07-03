@@ -338,7 +338,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                                       horizontal: 8,
                                     ),
                                     child: SizedBox(
-                                      height: 140,
+                                      height: 171,
                                       child: ListView.builder(
                                         controller: _marketScrollController,
                                         scrollDirection: Axis.horizontal,
