@@ -19,10 +19,9 @@ class _NavbarState extends State<Navbar> {
   final List<Widget> pages = [
     CommunityForumScreen(),
     CropCalendarScreen(),
-    WeatherScreen(),
     Dashboard(),
+    WeatherScreen(),
     ReminderScreen(),
-    SettingsScreen(),
   ];
 
   @override
@@ -48,19 +47,19 @@ class _NavbarState extends State<Navbar> {
               icon: Icon(Icons.calendar_today),
               label: 'Calendar',
             ),
-            BottomNavigationBarItem(icon: Icon(Icons.cloud), label: 'Weather'),
             BottomNavigationBarItem(
               icon: Icon(Icons.dashboard),
               label: 'Dashboard',
             ),
+            BottomNavigationBarItem(icon: Icon(Icons.cloud), label: 'Weather'),
             BottomNavigationBarItem(
               icon: Icon(Icons.notifications),
               label: 'Reminder',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.settings),
+            //   label: 'Settings',
+            // ),
           ],
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.blueGrey,

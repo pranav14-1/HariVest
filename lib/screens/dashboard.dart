@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pws/models/camera.dart';
 import 'package:pws/models/chat_bot.dart';
+import 'package:pws/screens/settings_screen.dart';
 
 final List<Map<String, dynamic>> mockMarketPrices = [
   {
@@ -266,29 +267,52 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                           color: Colors.blue.shade800,
                           borderRadius: BorderRadius.circular(18),
                           border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.4),
+                            color: Colors.white.withOpacity(0.4),
                           ),
                         ),
-                        child: const Center(
-                          child: Text(
-                            'Farm AI Dashboard',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              shadows: [
-                                Shadow(
-                                  color: Color(0x4D000000),
-                                  offset: Offset(1, 1),
-                                  blurRadius: 3,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            const Center(
+                              child: Text(
+                                'Farm AI Dashboard',
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  shadows: [
+                                    Shadow(
+                                      color: Color(0x4D000000),
+                                      offset: Offset(1, 1),
+                                      blurRadius: 3,
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+                            Positioned(
+                              right: 0,
+                              child: IconButton(
+                                icon: const Icon(
+                                  Icons.more_vert,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const SettingsScreen(),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
+
                   // Market Prices
                   FadeTransition(
                     opacity: fadeAnim,
