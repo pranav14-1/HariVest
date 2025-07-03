@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 class ChatBot extends StatefulWidget {
@@ -10,14 +11,15 @@ class ChatBot extends StatefulWidget {
 }
 
 class _ChatBot extends State<ChatBot> with SingleTickerProviderStateMixin {
-  final String _geminiApiKey = 'AIzaSyA2Ar6RM4JmRc_cJOT_GqF5laWOtm8j1lU';
+  final String _geminiApiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
   late GenerativeModel _geminiModel;
   final List<Map<String, String>> _messages = [
     {
       'id': '1',
-      'text': 'Hello! I am Surender, your farming assistant 🌾. Ask me about soil, weather, crops, or just say "help"!',
-      'sender': 'bot'
-    }
+      'text':
+          'Hello! I am Harivesh, your farming assistant 🌾. Ask me about soil, weather, crops, or just say "help"!',
+      'sender': 'bot',
+    },
   ];
   final TextEditingController _inputController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
@@ -40,7 +42,10 @@ class _ChatBot extends State<ChatBot> with SingleTickerProviderStateMixin {
       duration: const Duration(milliseconds: 350),
     );
     _fadeAnim = Tween<double>(begin: 0, end: 1).animate(_modalAnimController);
-    _slideAnim = Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(_modalAnimController);
+    _slideAnim = Tween<Offset>(
+      begin: const Offset(0, 1),
+      end: Offset.zero,
+    ).animate(_modalAnimController);
 
     _modalAnimController.forward();
   }
@@ -60,7 +65,7 @@ class _ChatBot extends State<ChatBot> with SingleTickerProviderStateMixin {
       _messages.add({
         'id': DateTime.now().millisecondsSinceEpoch.toString(),
         'text': input,
-        'sender': 'user'
+        'sender': 'user',
       });
       _isTyping = true;
       _inputController.clear();
@@ -69,14 +74,16 @@ class _ChatBot extends State<ChatBot> with SingleTickerProviderStateMixin {
 
     try {
       final response = await _geminiModel.generateContent([
-        Content.text("You are Surender, a friendly Indian farmer and agriculture expert. Help users with farming, soil, weather, crops, and give practical, friendly advice."),
-        Content.text(input)
+        Content.text(
+          "You are Harivesh, a friendly Indian farmer and agriculture expert. Help users with farming, soil, weather, crops, and give practical, friendly advice.",
+        ),
+        Content.text(input),
       ]);
       setState(() {
         _messages.add({
           'id': DateTime.now().millisecondsSinceEpoch.toString(),
           'text': response.text ?? "Sorry, I couldn't answer that.",
-          'sender': 'bot'
+          'sender': 'bot',
         });
         _isTyping = false;
       });
@@ -86,7 +93,7 @@ class _ChatBot extends State<ChatBot> with SingleTickerProviderStateMixin {
         _messages.add({
           'id': DateTime.now().millisecondsSinceEpoch.toString(),
           'text': "Error: ${e.toString()}",
-          'sender': 'bot'
+          'sender': 'bot',
         });
         _isTyping = false;
       });
@@ -163,10 +170,15 @@ class _ChatBot extends State<ChatBot> with SingleTickerProviderStateMixin {
                     Stack(
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 15,
+                          ),
                           decoration: const BoxDecoration(
                             color: Color(0xFF4CAF50),
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
                           ),
                           child: Row(
                             children: [
@@ -182,7 +194,7 @@ class _ChatBot extends State<ChatBot> with SingleTickerProviderStateMixin {
                               ),
                               const SizedBox(width: 12),
                               const Text(
-                                "Surender Farmer",
+                                "Harivesh Farmer",
                                 style: TextStyle(
                                   fontSize: 19,
                                   fontWeight: FontWeight.bold,
@@ -201,7 +213,9 @@ class _ChatBot extends State<ChatBot> with SingleTickerProviderStateMixin {
                               width: 24,
                               height: 24,
                             ),
-                            onPressed: widget.onClose ?? () => Navigator.of(context).pop(),
+                            onPressed:
+                                widget.onClose ??
+                                () => Navigator.of(context).pop(),
                           ),
                         ),
                       ],
@@ -212,7 +226,8 @@ class _ChatBot extends State<ChatBot> with SingleTickerProviderStateMixin {
                         controller: _scrollController,
                         itemCount: _messages.length,
                         padding: const EdgeInsets.only(top: 10, bottom: 10),
-                        itemBuilder: (context, idx) => _buildMessage(_messages[idx]),
+                        itemBuilder: (context, idx) =>
+                            _buildMessage(_messages[idx]),
                       ),
                     ),
                     if (_isTyping)
@@ -221,13 +236,20 @@ class _ChatBot extends State<ChatBot> with SingleTickerProviderStateMixin {
                         child: Row(
                           children: const [
                             Text(
-                              "Surender is typing...",
-                              style: TextStyle(color: Colors.grey, fontSize: 14),
+                              "Harivesh is typing...",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
                             SizedBox(width: 8),
                             SizedBox(
-                              width: 16, height: 16,
-                              child: CircularProgressIndicator(strokeWidth: 2, color: Color(0xFF76B947)),
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Color(0xFF76B947),
+                              ),
                             ),
                           ],
                         ),
@@ -241,18 +263,25 @@ class _ChatBot extends State<ChatBot> with SingleTickerProviderStateMixin {
                             child: TextField(
                               controller: _inputController,
                               decoration: InputDecoration(
-                                hintText: "Ask Surender something...",
+                                hintText: "Ask Harivesh something...",
                                 hintStyle: TextStyle(color: Colors.grey[600]),
                                 filled: true,
                                 fillColor: Colors.white,
-                                contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                                contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 10,
+                                  horizontal: 16,
+                                ),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(25),
-                                  borderSide: BorderSide(color: Colors.grey[300]!),
+                                  borderSide: BorderSide(
+                                    color: Colors.grey[300]!,
+                                  ),
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(25),
-                                  borderSide: BorderSide(color: Colors.grey[300]!),
+                                  borderSide: BorderSide(
+                                    color: Colors.grey[300]!,
+                                  ),
                                 ),
                               ),
                               textInputAction: TextInputAction.send,

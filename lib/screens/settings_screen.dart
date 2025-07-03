@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -19,7 +20,7 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  void _handleSignOut(BuildContext context) {
+  Future _handleSignOut(BuildContext context) async {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -32,11 +33,14 @@ class SettingsScreen extends StatelessWidget {
           ),
           TextButton(
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            onPressed: () {
+            onPressed: () async {
               Navigator.pop(context); // Close dialog
-              // TODO: Remove user token from storage if needed
-              // TODO: Navigate to SignIn screen (replace below with your routing)
-              _showAlert(context, "Signed Out", "You have been signed out.");
+              try {
+                await FirebaseAuth.instance.signOut();
+                Navigator.pushNamed(context, '/home');
+              } catch (e) {
+                _showAlert(context, "Error", "Failed to sign out: $e");
+              }
             },
             child: const Text("Sign Out"),
           ),

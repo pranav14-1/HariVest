@@ -45,7 +45,7 @@ generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols
-
+.env
 # Obfuscation related
 app.*.map.json
 

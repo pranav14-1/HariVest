@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pws/screens/home_page.dart';
 import 'package:pws/screens/signInScreen.dart';
 import 'package:pws/screens/signUpScreen.dart';
@@ -10,6 +10,9 @@ import 'package:pws/models/navBar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+  print("Dotenv loaded");
+
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -30,10 +33,10 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeScreen(),
         '/login': (context) => const SignInScreen(),
         '/signup': (context) => SignUpScreen(
-              navigate: (routename) {
-                Navigator.pushNamed(context, '/navbar');
-              },
-            ),
+          navigate: (routename) {
+            Navigator.pushNamed(context, '/navbar');
+          },
+        ),
         '/dashboard': (context) => const Dashboard(),
         '/navbar': (context) => const Navbar(),
       },

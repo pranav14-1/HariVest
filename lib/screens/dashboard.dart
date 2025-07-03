@@ -221,7 +221,6 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     final screenWidth = MediaQuery.of(context).size.width;
     final horizontalPadding = 20.0; // From SingleChildScrollView
     final listViewPadding = 16.0; // 8 left + 8 right
-    final itemMargin = 16.0; // 8 left + 8 right per item
     final availableWidth =
         screenWidth - 2 * horizontalPadding - 2 * listViewPadding;
     final itemWidth = availableWidth * 0.38;
