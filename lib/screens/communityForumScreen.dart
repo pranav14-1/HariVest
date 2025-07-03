@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pws/models/forum_post.dart';
+import 'package:pws/screens/communityChatScreen.dart';
 
 class CommunityForumScreen extends StatelessWidget {
   CommunityForumScreen({Key? key}) : super(key: key);
@@ -26,8 +26,7 @@ class CommunityForumScreen extends StatelessWidget {
       user: 'Grower Geeta',
       timestamp: '3 days ago',
       topic: 'Sharing tips for rainwater harvesting',
-      lastMessage:
-          'My new pond system saved me a lot this season. Anyone else?',
+      lastMessage: 'My new pond system saved me a lot this season. Anyone else?',
       messagesCount: 56,
       voiceSupport: true,
     ),
@@ -130,101 +129,111 @@ class CommunityForumScreen extends StatelessWidget {
                     itemCount: mockForumPosts.length,
                     itemBuilder: (context, idx) {
                       final item = mockForumPosts[idx];
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.95),
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border(
-                            left: BorderSide(color: Colors.blue, width: 5),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.15),
-                              offset: const Offset(0, 3),
-                              blurRadius: 8,
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => CommunityChatScreen(postData: item),
                             ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    item.user,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xFF1A3C34),
-                                    ),
-                                  ),
-                                  Text(
-                                    item.timestamp,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF777777),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                item.topic,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF333333),
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                'Last: "${item.lastMessage}"',
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0xFF555555),
-                                  fontStyle: FontStyle.italic,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    '${item.messagesCount} messages',
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF666666),
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  if (item.voiceSupport)
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 4,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFFFFEB3B),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: const Text(
-                                        '🎙️ Live Chat',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xFF333333),
-                                        ),
-                                      ),
-                                    ),
-                                ],
+                          );
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.95),
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border(
+                              left: BorderSide(color: Colors.blue, width: 5),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.15),
+                                offset: const Offset(0, 3),
+                                blurRadius: 8,
                               ),
                             ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      item.user,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xFF1A3C34),
+                                      ),
+                                    ),
+                                    Text(
+                                      item.timestamp,
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF777777),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  item.topic,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF333333),
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  'Last: "${item.lastMessage}"',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Color(0xFF555555),
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      '${item.messagesCount} messages',
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF666666),
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    if (item.voiceSupport)
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                          vertical: 4,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFFFFEB3B),
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: const Text(
+                                          '🎙️ Live Chat',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFF333333),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );

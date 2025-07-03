@@ -1,8 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:pws/models/forum_post.dart';
-import 'package:pws/models/chat_message.dart'; // Make sure you have this model
-import 'package:flutter/services.dart';
-import 'dart:async';
+
+// ChatMessage model
+class ChatMessage {
+  final String id;
+  final String sender;
+  final String? text;
+  final String? voiceUrl;
+  final String timestamp;
+
+  ChatMessage({
+    required this.id,
+    required this.sender,
+    this.text,
+    this.voiceUrl,
+    required this.timestamp,
+  });
+}
+
+// ForumPost model (same as in forum screen)
+class ForumPost {
+  final String id;
+  final String user;
+  final String timestamp;
+  final String topic;
+  final String lastMessage;
+  final int messagesCount;
+  final bool voiceSupport;
+
+  ForumPost({
+    required this.id,
+    required this.user,
+    required this.timestamp,
+    required this.topic,
+    required this.lastMessage,
+    required this.messagesCount,
+    this.voiceSupport = false,
+  });
+}
 
 // Mock chat messages
 final List<ChatMessage> mockChatMessages = [
@@ -80,7 +114,7 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
         _chatMessages.add(newMessage);
         _messageController.clear();
       });
-      Timer(const Duration(milliseconds: 150), _scrollToBottom);
+      Future.delayed(const Duration(milliseconds: 150), _scrollToBottom);
     }
   }
 
@@ -103,7 +137,7 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
     setState(() {
       _chatMessages.add(newVoiceMessage);
     });
-    Timer(const Duration(milliseconds: 150), _scrollToBottom);
+    Future.delayed(const Duration(milliseconds: 150), _scrollToBottom);
     _showDialog('Voice Message', 'Voice message sent! (Mock)');
   }
 
@@ -215,10 +249,6 @@ class _CommunityChatScreenState extends State<CommunityChatScreen> with SingleTi
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent),
-    );
-
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SafeArea(
