@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:pws/models/camera.dart';
+import 'package:pws/models/pick_image.dart';
 import 'package:pws/models/chat_bot.dart';
 
 final List<Map<String, dynamic>> mockMarketPrices = [
@@ -739,7 +739,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: InkWell(
-                            onTap: openCamera,
+                            onTap: () => pickImage(context),
                             borderRadius: BorderRadius.circular(16),
                             child: const Column(
                               children: [
