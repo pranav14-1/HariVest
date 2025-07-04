@@ -118,7 +118,9 @@ Enter key parameters:
 ## 📁 Installation
 
 git clone https://github.com/pranav14-1/HariVest.git
+
 cd Farmer_AI
+
 flutter pub get
 
 ---
