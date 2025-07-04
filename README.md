@@ -1,137 +1,142 @@
-# 🌾 Farmer AI - The Future of Agriculture is Here
+# 🌾 Farmer AI — Smart Agriculture with AI & ML
 
-Welcome to **Farmer AI** — a revolutionary, AI-powered super-app built to **empower farmers**, **streamline agricultural practices**, and **bridge the gap between tradition and technology**. From real-time market updates to plant disease detection, this app is your all-in-one **digital farming companion**.
+**Farmer AI** is a revolutionary, AI-powered smart farming assistant designed to empower Indian farmers with actionable insights. The app brings together crop calendars, real-time market data, soil health analysis, plant disease detection, and a virtual farming assistant — all in one cross-platform mobile solution.
 
-Developed with cutting-edge machine learning, real-time APIs, and community-driven features, **Farmer AI** reimagines the future of agriculture — **smart, sustainable, and scalable**.
-
----
-
-## 🌟 Why Farmer AI?
-
-Farming is no longer just soil and sweat — it’s **science, data, and intelligence**. Farmer AI equips farmers with a **personal AI assistant**, powerful **visual diagnostics**, and **actionable insights** right at their fingertips.
-
-Whether you're a smallholder in Bihar or a large-scale grower in Punjab — **Farmer AI works for you.**
+Built with **Flutter**, **Firebase**, and **TensorFlow Lite**, Farmer AI makes cutting-edge agriculture tools accessible to every farmer — digitally, intelligently, and intuitively.
 
 ---
 
-## 🚀 Key Features
+## 🧠 What is Farmer AI?
 
-### 👨‍🌾 Community Chat (Powered by Farmers, For Farmers)
-Join a vibrant forum of fellow farmers to:
-- Ask questions
-- Share tips on fertilizers, pest control, and crop rotation
-- Discuss region-specific farming practices
+Farmer AI is a full-stack, AI-driven agriculture assistant that modernizes farming through:
 
-✅ Real-time, uncensored, and farmer-first.
-
----
-
-### 🗓️ Dynamic Crop Calendar (State-Wise Intelligence)
-Plan your crops like a pro. Get a **location-specific calendar** that tells you:
-- What to sow
-- When to sow
-- When to harvest
-
-Optimized for **all Indian states**. Stay one step ahead of the climate.
+- 🌾 AI-based plant disease detection (image classification)
+- 📈 Live mandi (market) price tracking
+- 🗓️ Region-specific crop calendars
+- 🧪 Soil health–based crop and fertilizer recommendations
+- 🤖 Real-time chatbot for personalized farming help
 
 ---
 
-### 📈 Live Market Dashboard (Stay Ahead of the Game)
-Get **real-time mandi prices** for India's most critical crops:
-- Basmati
-- Wheat
-- Potato
-- Onion
-- Tomato
-- Maize
+## 🧭 Chosen Track
 
-📊 Plan your harvest and sales based on actual demand, not assumptions.
+**🟢 AI/ML (Artificial Intelligence & Machine Learning)**
+
+This project tackles real-world agricultural problems using:
+
+- ✅ On-device ML model (TensorFlow Lite) for plant disease detection
+- ✅ AI chatbot (“Harivest”) for natural-language-based farming Q&A
+- ✅ Soil and crop recommendation engine powered by input-driven analysis
 
 ---
 
-### 🧪 Soil Health Analyzer (Smart Soil = Smart Yield)
-Input your field data:
+## ❗ The Problem We’re Solving
+
+Over **150 million Indian farmers** still rely on traditional methods, facing challenges like:
+
+- ❌ Lack of real-time crop insights and weather updates
+- ❌ Limited access to soil diagnostics or scientific planning tools
+- ❌ No centralized platform for price tracking and disease detection
+- ❌ Insufficient awareness of government schemes or community support
+
+**Farmer AI** addresses these issues by putting powerful tools in farmers' hands — in their own language, with real-time intelligence.
+
+---
+
+## 🏆 Bounties & Challenges Completed
+
+- ✅ Created a custom **team mascot** inspired by the Star Wars Jedi theme
+- ✅ Embedded **Star Wars-themed Easter eggs** for an engaging and fun user experience
+- ✅ Implemented **3D navigation transitions** to enhance app fluidity and UI appeal
+
+---
+
+## 🚀 Features
+
+### 👨‍🌾 Community Chat
+- Real-time farmer-to-farmer discussions
+- Share tips on fertilizers, pests, crops, and more
+
+### 🗓️ Crop Calendar
+- Dynamic, state-wise calendar
+- Know what to sow and when, based on region
+
+### 📊 Live Market Dashboard
+- Real-time prices for key crops:
+  - Basmati, Wheat, Potato, Onion, Tomato, Maize
+
+### 🧪 Soil Health Recommendations
+Enter key parameters:
 - Soil Moisture
-- Soil Temperature
+- Temperature
 - pH Level
-- Nitrogen Level
+- Nitrogen Level  
+➡️ Receive smart suggestions on:
+- Crop choices
+- Fertilizer usage
+- Farming strategies
 
-🔥 One click on **“Get Soil Recommendation”**, and you receive **AI-verified**, **crop-specific suggestions** — fertilizers, practices, and optimal planting decisions tailored to your land.
+### 📸 AI Disease Detection
+- Upload or take plant photos
+- Detect crop type and disease instantly via ML model
+- Get personalized treatment suggestions
 
----
+### 🤖 Harivest — Your AI Farming Bot
+- Ask real-time questions on farming, fertilizers, diseases, weather, etc.
+- Powered by generative AI
+- Star Wars–inspired voice and personality
 
-### 📸 AI-Powered Plant Disease Detection
-Snap it. Scan it. Solve it.
+### 🌦️ Weather Forecast
+- Real-time weather updates via WeatherAPI
+- Search by city
+- Fun Star Wars-themed surprises for fans
 
-- Upload or capture plant images
-- ML model identifies **crop type** and **disease**
-- Get **custom treatment plans** generated instantly
+### ⏰ Scheme Reminder System
+- 🔔 New Schemes: Recently launched government support
+- 📜 Previous Schemes: Past programs and subsidy history
 
-🧠 Your own plant pathologist — in your pocket.
-
----
-
-### 🤖 Harivest — Your Jedi Farming Assistant
-Meet **Harivest**, our intelligent chatbot (and secret Jedi 🤫).
-- Ask anything: “Why are my leaves yellow?”, “Which fertilizer for wheat?”
-- Get **real-time**, contextual answers
-- Available 24/7 — powered by generative AI
-
-🌌 Includes hidden **Star Wars-themed Easter eggs** for fans!
-
----
-
-### 🌦️ Weather Forecast (With a Galactic Twist)
-Powered by [WeatherAPI.com](https://www.weatherapi.com/):
-- Real-time forecasts for any Indian city
-- Beautiful, responsive UI
-- Hidden **Star Wars-themed cities** and weather-based surprises
-
-🌤️ Because farmers deserve forecasts with a smile.
+### ⚙️ Settings Panel
+- Edit profile and password
+- Customize language and measurement units
+- Manage notifications
+- Firebase-authenticated sign-out
 
 ---
 
-### 🛎️ Farming Scheme Reminder System
-Stay updated with the **latest government support**:
-- 🔔 **New Schemes** – Real-time alerts about just-launched agri-schemes
-- 🕰️ **Previous Schemes** – Browse through historical programs that shaped Indian agriculture
+## 🛠️ Tech Stack
 
-💡 No more missed opportunities.
-
----
-
-### ⚙️ Fully Customizable Settings
-- Edit Profile
-- Change Password
-- Toggle Notifications
-- Switch Language
-- Change Units (Metric/Imperial)
-- Secure Logout
+| Layer         | Technology                                  |
+|---------------|---------------------------------------------|
+| **Frontend**  | Flutter (Dart)                              |
+| **Backend**   | Firebase Auth, Firestore, Firebase Storage  |
+| **ML Model**  | TensorFlow Lite (on-device image detection) |
+| **APIs**      | WeatherAPI, Custom Market Price API         |
+| **Cloud**     | Firebase Hosting & Firestore                |
 
 ---
 
-### 🔐 Robust Authentication System
-- Built with **FirebaseAuth**
-- Fully integrated sign-in and sign-out pages
-- User session and data securely managed
+## 📁 Installation
 
----
-
-## 🧠 Built With
-
-| Tech | Description |
-|------|-------------|
-| Flutter | Cross-platform frontend |
-| Firebase | Auth, Firestore, Storage |
-| TensorFlow Lite | ML inference on-device |
-| WeatherAPI | Live weather forecasts |
-| Custom APIs | Market prices, government schemes |
-
----
-
-## 💻 Installation
-
-```bash
 git clone https://github.com/pranav14-1/HariVest.git
 cd HariVest
 flutter pub get
+
+---
+
+## ✅ Firebase Setup
+
+To run HariVest with Firebase, follow these steps:
+
+1. Go to [console.firebase.google.com](https://console.firebase.google.com/) and create a new Firebase project.
+2. Register your app(s):
+   - For Android: Use your app’s package name
+   - For iOS: Use your app’s bundle ID
+3. Download the Firebase config files:
+   - Place `google-services.json` in `android/app/`
+   - Place `GoogleService-Info.plist` in `ios/Runner/`
+4. Enable **Authentication** in Firebase Console:
+   - Go to **Authentication → Sign-in method → Enable Email/Password**
+5. Configure **Firestore Database**:
+   - Enable Firestore in test mode or secure it with appropriate rules.
+6. (Optional) Enable **Firebase Storage** if your app uploads images (e.g., plant photos for ML analysis).
+
