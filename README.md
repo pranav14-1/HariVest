@@ -118,14 +118,14 @@ Enter key parameters:
 ## 📁 Installation
 
 git clone https://github.com/pranav14-1/HariVest.git
-cd HariVest
+cd Farmer_AI
 flutter pub get
 
 ---
 
 ## ✅ Firebase Setup
 
-To run HariVest with Firebase, follow these steps:
+To run Farmer AI with Firebase, follow these steps:
 
 1. Go to [console.firebase.google.com](https://console.firebase.google.com/) and create a new Firebase project.
 2. Register your app(s):
