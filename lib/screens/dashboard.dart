@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:pws/models/pick_image.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pws/models/chat_bot.dart';
+import 'package:pws/models/generate_treatment_gemini.dart';
 import 'package:pws/screens/settings_screen.dart';
+import 'package:pws/services/plant_disease_detector.dart';
 
 final List<Map<String, dynamic>> mockMarketPrices = [
   {
@@ -85,6 +88,9 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
+  final PlantDiseaseDetector detector = PlantDiseaseDetector();
+  String? _result;
+  File? _selectedImage;
   String? imagePath;
   String moisture = '';
   String temperature = '';
@@ -96,7 +102,8 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   List<Map<String, dynamic>> marketPrices = [];
   bool loadingMarketPrices = false;
   bool showChatBot = false;
-
+  bool showTreatment = false;
+  String? treatmentInfo;
   final ScrollController _marketScrollController = ScrollController();
   Timer? _marketScrollTimer;
 
@@ -105,10 +112,16 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   late Animation<double> fadeAnim;
   late Animation<double> slideAnim;
   late Animation<double> scaleAnim;
+  bool modelLoaded = false;
 
   @override
   void initState() {
     super.initState();
+    detector.loadModel().then((_) {
+      setState(() {
+        modelLoaded = true;
+      });
+    });
 
     fadeController = AnimationController(
       vsync: this,
@@ -147,6 +160,59 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  Future<void> pickImage(BuildContext context) async {
+    final ImagePicker picker = ImagePicker();
+
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext ctx) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Take Photo'),
+                onTap: () async {
+                  Navigator.of(ctx).pop();
+                  final XFile? image = await picker.pickImage(
+                    source: ImageSource.camera,
+                  );
+                  if (image != null) {
+                    await _analyzeImage(File(image.path));
+                  }
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Choose from Gallery'),
+                onTap: () async {
+                  Navigator.of(ctx).pop();
+                  final XFile? image = await picker.pickImage(
+                    source: ImageSource.gallery,
+                  );
+                  if (image != null) {
+                    await _analyzeImage(File(image.path));
+                  }
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _analyzeImage(File imageFile) async {
+    setState(() {
+      _selectedImage = imageFile;
+      _result = 'Analyzing...';
+    });
+    final prediction = await detector.predict(imageFile);
+    setState(() {
+      _result = prediction;
+    });
+  }
+
   void _startMarketAutoScroll() {
     _marketScrollTimer?.cancel();
     _marketScrollTimer = Timer.periodic(const Duration(seconds: 3), (_) {
@@ -177,6 +243,20 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         }
       }
     });
+  }
+
+  String getTreatmentForDisease(String? disease) {
+    if (disease == null)
+      return 'No disease detected. Please analyze a plant first.';
+    switch (disease.toLowerCase()) {
+      case 'tomato late blight':
+        return 'Remove affected leaves, use fungicide, and avoid overhead watering.';
+      case 'apple scab':
+        return 'Apply appropriate fungicide and remove fallen leaves.';
+      // Add more cases as needed
+      default:
+        return 'No specific treatment found. Consult an expert for advice.';
+    }
   }
 
   String generateSoilRecommendation({
@@ -763,7 +843,9 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: InkWell(
-                            onTap: () => pickImage(context),
+                            onTap: modelLoaded
+                                ? () => pickImage(context)
+                                : null,
                             borderRadius: BorderRadius.circular(16),
                             child: const Column(
                               children: [
@@ -802,36 +884,95 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                             color: Colors.blue.shade600,
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          child: const Column(
-                            children: [
-                              Icon(
-                                Icons.healing,
-                                color: Colors.white,
-                                size: 40,
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                'Treatment',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                          child: InkWell(
+                            onTap: () async {
+                              setState(() {
+                                showTreatment = true;
+                                treatmentInfo =
+                                    null; // Optionally show a loading state
+                              });
+
+                              // Fetch the treatment asynchronously
+                              final result = await generateTreatmentWithGemini(
+                                _result,
+                              );
+                              setState(() {
+                                treatmentInfo = result;
+                              });
+                            },
+                            borderRadius: BorderRadius.circular(16),
+                            child: const Column(
+                              children: [
+                                Icon(
+                                  Icons.healing,
                                   color: Colors.white,
+                                  size: 40,
                                 ),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                'Personalized care recommendations',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.white,
+                                SizedBox(height: 8),
+                                Text(
+                                  'Treatment',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                SizedBox(height: 4),
+                                Text(
+                                  'Personalized care recommendations',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
+                  if (showTreatment && treatmentInfo != null)
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(18),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade600,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.healing,
+                                color: Colors.white,
+                                size: 32,
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                _result ?? 'Disease',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            treatmentInfo!,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
                   const SizedBox(height: 50),
                 ],
               ),
